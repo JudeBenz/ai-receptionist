@@ -1,0 +1,4 @@
+business,vertical,city,phone,website,source,owner_name,google_rating,review_count,hours_note,priority,status
+,HVAC,,,,Google Maps "hvac contractor [city]",,,,"closes 5pm weekdays, closed weekends",A,new
+,plumbing,,,,Google Maps "plumber [city]",,,,,B,new
+,law,,,,State bar directory / Google Maps "personal injury lawyer [city]",,,,,B,new

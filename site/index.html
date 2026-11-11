@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>EveryCall AI Receptionists</title>
+<meta name="description" content="An AI phone receptionist for HVAC, plumbing and law firms. It answers only the calls your team misses, books the job, and texts you the summary.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Layout: a left-aligned column, 1080px wide, with a live call transcript as the hero's second column and a flat orange call strip as the one bold element. */
+:root {
+  --bg: #F7F6F2; --fg: #14213D; --muted: #5B6472; --panel: #FFFFFF; --line: #D9DDE3;
+  --accent: #E07A1F; --on-accent: #14213D; --ink: #14213D; --on-ink: #F7F6F2; --ink-muted: #BFD8D5;
+  --display: 'Archivo', 'Arial Narrow', Arial, sans-serif;
+  --body: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0F1830; --fg: #EEF1F6; --muted: #A9B4C6; --panel: #182440; --line: #2B3A5C;
+  --accent: #F39A4A; --on-accent: #0F1830; --ink: #182440; --on-ink: #EEF1F6; --ink-muted: #A9B4C6; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0F1830; --fg: #EEF1F6; --muted: #A9B4C6; --panel: #182440; --line: #2B3A5C;
+  --accent: #F39A4A; --on-accent: #0F1830; --ink: #182440; --on-ink: #EEF1F6; --ink-muted: #A9B4C6; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 18px; line-height: 1.55 }
+a { color: inherit }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; text-wrap: balance }
+h1 { font-size: clamp(2.2rem, 5.5vw, 4rem); font-weight: 800; letter-spacing: -0.02em }
+h2 { font-size: clamp(1.7rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.015em }
+h3 { font-size: 1.25rem; font-weight: 700 }
+p { margin: 0 }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+section { padding-block: 72px }
+.eyebrow { font-family: var(--display); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent) }
+.lede { font-size: 1.25rem; color: var(--muted); max-width: 36em }
+.stack { display: flex; flex-direction: column; gap: 20px }
+
+/* nav */
+nav { padding-block: 18px; border-bottom: 1px solid var(--line) }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap }
+.logo { font-family: var(--display); font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; text-decoration: none; display: flex; align-items: center; gap: 10px }
+.logo span { width: 14px; height: 14px; background: var(--accent); border-radius: 50% 50% 50% 0 }
+nav .links { display: flex; gap: 22px; font-weight: 600; font-size: 0.95rem }
+nav .links a { text-decoration: none; color: var(--muted) }
+nav .links a:hover, nav .links a:focus-visible { color: var(--fg) }
+
+/* hero */
+.hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center }
+.cta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center }
+.btn { font-family: var(--display); font-weight: 700; font-size: 1rem; padding: 14px 22px; border-radius: 6px; text-decoration: none; border: 2px solid transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 10px }
+.btn.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent) }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--line) }
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px }
+.numline { font-family: var(--display); font-weight: 800; font-size: 1.35rem; letter-spacing: 0.01em; font-variant-numeric: tabular-nums }
+.small { font-size: 0.9rem; color: var(--muted) }
+
+/* transcript card */
+.call { background: var(--ink); color: var(--on-ink); border-radius: 12px; padding: 24px; min-width: 0; box-shadow: 0 20px 50px -30px rgba(20,33,61,0.6) }
+.call header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.14); padding-bottom: 12px; margin-bottom: 14px }
+.call header b { font-family: var(--display); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase }
+.call header .live { color: var(--accent); font-size: 0.8rem; font-weight: 600 }
+.call ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 0.98rem }
+.call li { display: grid; grid-template-columns: 52px 1fr; gap: 10px; align-items: start }
+.call time { color: var(--ink-muted); font-variant-numeric: tabular-nums; font-size: 0.85rem; padding-top: 2px }
+.call .who { font-family: var(--display); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); display: block; margin-bottom: 2px }
+.call .booked { margin-top: 16px; background: var(--accent); color: var(--on-accent); border-radius: 8px; padding: 12px 14px; font-weight: 600; display: flex; gap: 10px; align-items: center; font-size: 0.95rem }
+
+/* proof strip */
+.proof { background: var(--panel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 36px }
+.proof .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px }
+.stat b { font-family: var(--display); font-size: 2.6rem; font-weight: 800; display: block; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums }
+.stat p { color: var(--muted); margin-top: 8px }
+.proof .src { grid-column: 1 / -1; font-size: 0.85rem; color: var(--muted) }
+
+/* steps */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 36px }
+.step { border-top: 3px solid var(--accent); padding-top: 16px; min-width: 0 }
+.step b { font-family: var(--display); font-size: 0.8rem; letter-spacing: 0.1em; color: var(--muted); display: block; margin-bottom: 8px }
+.step p { color: var(--muted); font-size: 1rem; margin-top: 6px }
+
+/* cards */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 36px }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 24px; min-width: 0 }
+.card p { color: var(--muted); font-size: 1rem; margin-top: 8px }
+
+/* verticals */
+.verts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px }
+.vert { background: var(--ink); color: var(--on-ink); border-radius: 10px; padding: 24px; min-width: 0 }
+.vert h3 { color: var(--accent) }
+.vert p { color: var(--ink-muted); font-size: 1rem; margin-top: 8px }
+
+/* pricing */
+.tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; align-items: start }
+.tier { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 26px; min-width: 0; display: flex; flex-direction: column; gap: 14px }
+.tier.featured { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent) }
+.tier .price { font-family: var(--display); font-size: 2.4rem; font-weight: 800; line-height: 1 }
+.tier .price small { font-size: 1rem; font-weight: 600; color: var(--muted) }
+.tier ul { margin: 0; padding-left: 20px; color: var(--muted); font-size: 1rem; display: flex; flex-direction: column; gap: 6px }
+.tier .tag { font-family: var(--display); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent) }
+
+/* faq */
+details { border-top: 1px solid var(--line); padding-block: 16px }
+details:last-of-type { border-bottom: 1px solid var(--line) }
+summary { font-family: var(--display); font-weight: 700; font-size: 1.1rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px }
+summary::after { content: "+"; color: var(--accent); font-size: 1.4rem; line-height: 1 }
+details[open] summary::after { content: "–" }
+summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px }
+details p { color: var(--muted); margin-top: 10px; max-width: 60em }
+
+/* contact */
+.contact .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start }
+form { display: grid; gap: 14px }
+label { display: grid; gap: 6px; font-weight: 600; font-size: 0.95rem }
+input, select { font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--fg); width: 100% }
+input:focus-visible, select:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px }
+.note { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; font-size: 0.95rem }
+.contact-lines { display: flex; flex-direction: column; gap: 14px; font-size: 1.05rem }
+.contact-lines b { font-family: var(--display); display: block; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted) }
+
+/* strip + footer */
+.strip { background: var(--accent); color: var(--on-accent); padding-block: 40px }
+.strip .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap }
+.strip h2 { color: var(--on-accent) }
+.strip .btn.ghost { color: var(--on-accent); border-color: var(--on-accent) }
+footer { padding-block: 36px; font-size: 0.9rem; color: var(--muted) }
+footer .wrap { display: flex; flex-direction: column; gap: 10px }
+
+@media (max-width: 860px) {
+  section { padding-block: 56px }
+  .hero .wrap, .contact .wrap { grid-template-columns: 1fr }
+  .proof .wrap, .steps, .cards, .verts, .tiers { grid-template-columns: 1fr }
+  nav .links { display: none }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .call .booked { animation: rise 600ms ease-out backwards; animation-delay: 300ms }
+  @keyframes rise { from { opacity: 0.4; transform: translateY(6px) } to { opacity: 1; transform: none } }
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="logo" href="#top"><span></span><em style="font-style:normal" data-brand="company">EveryCall</em></a>
+  <div class="links">
+    <a href="#how">How it works</a><a href="#who">Who it's for</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+  </div>
+  <a class="btn primary" href="#contact">Hear it answer</a>
+</div></nav>
+
+<section class="hero" id="top"><div class="wrap">
+  <div class="stack">
+    <p class="eyebrow">AI phone receptionist for <span data-brand="city">your city</span></p>
+    <h1>The receptionist that answers when yours can't.</h1>
+    <p class="lede">For HVAC, plumbing and law firms. It picks up only the calls your team misses, books the job on your calendar, and texts you the summary. It says it's an AI, and hands over the moment someone asks for a person.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#contact">Book a 15-minute demo</a>
+      <div>
+        <div class="numline">Call the demo line: <span data-brand="demo">(555) 010-0100</span></div>
+        <p class="small">Pretend you're a customer. Try to confuse it.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="call" aria-label="Example call transcript">
+    <header><b>Example call</b><span class="live">Answered after 15 s · 7:42 pm</span></header>
+    <ol>
+      <li><time>0:00</time><div><span class="who">Receptionist</span>Thanks for calling Northwind Heating and Air. This is Kylie, an AI assistant, and this call may be recorded. How can I help?</div></li>
+      <li><time>0:09</time><div><span class="who">Caller</span>Our furnace just quit and it's freezing. Can someone come tomorrow?</div></li>
+      <li><time>0:15</time><div><span class="who">Receptionist</span>Let me check tomorrow for you. One moment. … I have eight in the morning or one in the afternoon. Which works?</div></li>
+      <li><time>0:31</time><div><span class="who">Caller</span>Eight. It's 412 Maple Street.</div></li>
+      <li><time>0:36</time><div><span class="who">Receptionist</span>Booked: tomorrow at eight, 412 Maple Street, furnace not running. The technician will text before arriving.</div></li>
+    </ol>
+    <div class="booked">✓ Owner texted: "Furnace call booked, 8:00 am, 412 Maple St."</div>
+  </aside>
+</div></section>
+
+<div class="proof"><div class="wrap">
+  <div class="stat"><b>38%</b><p>of calls to small businesses are answered by a person. The rest ring out.</p></div>
+  <div class="stat"><b>3 in 4</b><p>callers never try again after one unanswered call.</p></div>
+  <div class="stat"><b>6 in 10</b><p>dial a competitor instead.</p></div>
+  <p class="src">Figures from a 2024 study of 85 small businesses, as reported by industry sources. Your own numbers matter more: we'll ask for them.</p>
+</div></div>
+
+<section id="how"><div class="wrap">
+  <p class="eyebrow">How it works</p>
+  <h2>Your people answer first. It catches what they drop.</h2>
+  <div class="steps">
+    <div class="step"><b>STEP 1</b><h3>The call rings as normal</h3><p>Your desk or cell rings the way it does today. Nothing changes for calls you answer.</p></div>
+    <div class="step"><b>STEP 2</b><h3>Fifteen seconds, or after hours</h3><p>If nobody picks up, the receptionist answers, says it's an AI, and says the call may be recorded.</p></div>
+    <div class="step"><b>STEP 3</b><h3>It handles the call</h3><p>Takes the details, answers the usual questions, checks your real calendar and books the visit.</p></div>
+    <div class="step"><b>STEP 4</b><h3>Or hands it to you</h3><p>Anything it can't answer goes to you or to voicemail. Never a dead end.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="eyebrow">After every call</p>
+  <h2>You see exactly what happened, without stopping work.</h2>
+  <div class="cards">
+    <div class="card"><h3>A summary by text or email</h3><p>Who called, what they needed, what was agreed. Two or three sentences, within a minute of hanging up.</p></div>
+    <div class="card"><h3>The full transcript and recording</h3><p>Every word, with the caller's name, number and address, kept in your account.</p></div>
+    <div class="card"><h3>Booked on your calendar</h3><p>It checks real availability, books the slot, and can move or cancel it when the customer calls back.</p></div>
+    <div class="card"><h3>Logged with your customers</h3><p>New callers get a record. Returning callers are recognised by their number and greeted by name.</p></div>
+  </div>
+</div></section>
+
+<section id="who"><div class="wrap">
+  <p class="eyebrow">Who it's for</p>
+  <h2>Businesses where one missed call costs more than a month of service.</h2>
+  <div class="verts">
+    <div class="vert"><h3>HVAC</h3><p>The air went out. Someone is coming today, or they call the next company on the list.</p></div>
+    <div class="vert"><h3>Plumbing</h3><p>Water in the basement. Nobody waits until tomorrow for a call back.</p></div>
+    <div class="vert"><h3>Law firms</h3><p>A new client calls once. The first firm that answers usually gets the case.</p></div>
+  </div>
+</div></section>
+
+<section id="pricing"><div class="wrap">
+  <p class="eyebrow">Pricing</p>
+  <h2>One flat number a month. No per-minute surprises.</h2>
+  <p class="lede" style="margin-top:12px">Set-up included. Month to month after a 30-day pilot. If it hasn't booked you a job by day 30, you owe nothing.</p>
+  <div class="tiers">
+    <div class="tier"><span class="tag">Starter</span><div class="price">$297<small> /month</small></div>
+      <ul><li>One phone line</li><li>After-hours and overflow answering</li><li>Books appointments on your calendar</li><li>Answers your FAQs</li><li>Email summary of every call</li></ul></div>
+    <div class="tier featured"><span class="tag">Growth · most owners</span><div class="price">$497<small> /month</small></div>
+      <ul><li>Everything in Starter</li><li>Text alerts to your cell</li><li>Live transfer to you or your team</li><li>Reschedules and cancellations</li><li>Monthly tuning from call transcripts</li></ul></div>
+    <div class="tier"><span class="tag">Pro</span><div class="price">$997<small> /month</small></div>
+      <ul><li>Everything in Growth</li><li>Several lines or locations</li><li>Separate sales and support hand-offs</li><li>CRM integration</li><li>Changes within one business day</li></ul></div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <p class="eyebrow">Questions owners ask</p>
+  <h2>Straight answers.</h2>
+  <div style="margin-top:28px">
+    <details><summary>Will my customers know it's an AI?</summary><p>Yes. It says so in the greeting and again if anyone asks. Callers who want a person are transferred to you or get a call back. Hiding it would be bad for your name and, in several states, against the law.</p></details>
+    <details><summary>Does it replace my receptionist?</summary><p>No. If a human can answer, they should. It takes the calls at lunch, after six, on Saturday, and when the trucks are all out.</p></details>
+    <details><summary>What if it gets something wrong?</summary><p>It only quotes what you've given it: hours, services, price ranges, policies. Anything outside that becomes a call back or a transfer, never a guess. You get the transcript of every call, and we tune it from them.</p></details>
+    <details><summary>Does it work with my calendar and software?</summary><p>Google Calendar and Google Workspace out of the box. Other calendars and CRMs on the Pro plan. Your existing phone number stays; we add forwarding on no-answer.</p></details>
+    <details><summary>What does it cost per minute?</summary><p>Nothing extra. Plans are flat and include normal inbound call volume under fair use. If you run a call centre, let's talk.</p></details>
+    <details><summary>How long does set-up take?</summary><p>About a week: a 30-minute call to collect your hours, services and the questions callers ask, then testing with you before it goes live.</p></details>
+  </div>
+</div></section>
+
+<div class="strip"><div class="wrap">
+  <h2>Hear it before you decide.</h2>
+  <div class="cta-row"><div class="numline" data-brand="demo">(555) 010-0100</div><a class="btn ghost" href="#contact">Or book a demo</a></div>
+</div></div>
+
+<section class="contact" id="contact"><div class="wrap">
+  <div class="stack">
+    <p class="eyebrow">Contact</p>
+    <h2>Book a 15-minute demo.</h2>
+    <p class="lede">You call the demo line and try to confuse it. We show you what lands on the calendar and what you'd get on your phone. If it isn't useful, no hard feelings.</p>
+    <div class="contact-lines">
+      <div><b>Phone</b><span data-brand="phone">(555) 010-0100</span></div>
+      <div><b>Email</b><span data-brand="email">hello@everycall.example</span></div>
+      <div><b>Book directly</b><a data-brand-href="booking" href="#contact">Pick a time on the calendar</a></div>
+    </div>
+  </div>
+  <form id="demo-form" novalidate>
+    <label for="f-name">Your name<input id="f-name" name="name" autocomplete="name" required></label>
+    <label for="f-biz">Business<input id="f-biz" name="business" autocomplete="organization" required></label>
+    <label for="f-phone">Best number to call you<input id="f-phone" name="phone" type="tel" autocomplete="tel" required></label>
+    <label for="f-type">Type of business<select id="f-type" name="type"><option>HVAC</option><option>Plumbing</option><option>Law firm</option><option>Electrical</option><option>Other trade</option></select></label>
+    <label for="f-when">Best time for a quick call<input id="f-when" name="when" placeholder="e.g. weekday mornings"></label>
+    <button class="btn primary" type="submit">Request a demo</button>
+    <p class="note" id="form-note" hidden></p>
+  </form>
+</div></section>
+
+<footer><div class="wrap">
+  <p><strong data-brand="company">EveryCall</strong> · <span data-brand="legal">[Legal name]</span> · <span data-brand="city">[City, State]</span></p>
+  <p>Our receptionists identify themselves as AI assistants and state that calls may be recorded. We answer inbound calls only and never make outbound sales calls on your behalf.</p>
+  <p>© <span id="year">2026</span> <span data-brand="company">EveryCall</span>. All rights reserved.</p>
+</div></footer>
+
+<script>
+// Edit these once. Every element with data-brand="…" is filled from here.
+const BRAND = {
+  company: "EveryCall",
+  legal: "[Legal name]",
+  city: "[City, State]",
+  phone: "(555) 010-0100",
+  demo: "(555) 010-0100",
+  email: "hello@everycall.example",
+  booking: "https://calendly.com/your-link/15min",
+  // Where the form posts. Make a free form endpoint (Formspree, Basin, Web3Forms) and paste its URL here.
+  // Left empty, the form shows the phone number and email instead of sending.
+  formEndpoint: ""
+};
+document.querySelectorAll("[data-brand]").forEach(el => { const v = BRAND[el.dataset.brand]; if (v) el.textContent = v; });
+document.querySelectorAll("[data-brand-href]").forEach(el => { const v = BRAND[el.dataset.brandHref]; if (v) el.href = v; });
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const form = document.getElementById("demo-form");
+const note = document.getElementById("form-note");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (!form.reportValidity()) return;
+  const data = Object.fromEntries(new FormData(form).entries());
+  if (BRAND.formEndpoint) {
+    try {
+      const r = await fetch(BRAND.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error("bad status");
+      note.textContent = `Thanks, ${data.name}. We'll call ${data.phone} ${data.when ? "(" + data.when + ")" : "shortly"}. Meanwhile, try the demo line: ${BRAND.demo}.`;
+      note.hidden = false; form.reset(); return;
+    } catch (err) { /* fall through to the manual message */ }
+  }
+  note.textContent = `Thanks, ${data.name}. To book right now, call ${BRAND.phone} or email ${BRAND.email} with "${data.business}" in the subject. The demo line is ${BRAND.demo}.`;
+  note.hidden = false;
+});
+</script>
+</body>
+</html>

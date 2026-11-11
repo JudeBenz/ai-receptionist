@@ -1,0 +1,4 @@
+num,date,time,business,vertical,city,phone,contact_name,role,outcome,misses_calls,missed_per_day,avg_job_value,would_have_booked,demo_datetime,next_action,next_action_date,dnc,notes
+1,2026-11-11,08:05,Example Heating & Cooling,HVAC,[City],+15550100001,Dana,owner,demo booked,yes,8,350,half,2026-11-13 10:00,send invite + email 1,2026-11-11,,"Out on jobs most of the day, voicemail after 5"
+2,2026-11-11,08:11,Example Plumbing Co,plumbing,[City],+15550100002,,gatekeeper,call back,?,,,,,ask for Mike after 1pm,2026-11-11,,
+3,2026-11-11,08:16,Example Law Office,law,[City],+15550100003,,voicemail,voicemail,?,,,,,second attempt 3pm,2026-11-11,,

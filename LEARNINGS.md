@@ -52,3 +52,6 @@ HighLevel (two of the three videos) bundles voice, CRM, snapshots and rebilling 
 - `tests/test-calls.md` the six calls to make before any demo.
 - `research/` the three transcripts and the pitch-deck analysis.
 - `deck/` the pitch deck source (ten slides, one HTML file each, plus the index). The live deck is a Claude artifact; the files here are the editable source.
+- `business/` the working brand config and the launch checklist for the company around the product.
+- `sales/` the cold-call script and day plan, call tracker, lead-list template, follow-up emails, one-pager and the service agreement draft.
+- `site/` the one-page website, deployable as static files.
