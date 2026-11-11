@@ -15,7 +15,7 @@ Done by: Claude Code (browser pane) with the owner signed in
 | n8n plan, trial ends | | no |
 | MCP production URL (ends in /sse?) | | no |
 | Webhook production URL | | no |
-| Vapi number | | no |
+| Vapi number | +1 (978) 347-8475, label "AfterRing demo", id aac99670-b602-4e70-8bf0-fc93f98dfda7, inbound only (new accounts get 1 free number) | yes |
 | Vapi assistant ID | | no |
 | Vapi pricing seen | | no |
 | Test calls passed (of 6), notes on failures | | no |
