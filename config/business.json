@@ -1,0 +1,15 @@
+{
+  "assistant_name": "Kylie",
+  "voice_id": "Paige",
+  "business": {
+    "name": "Northwind Heating and Air",
+    "type": "heating and air-conditioning company",
+    "city": "Chicago",
+    "timezone": "America/Chicago",
+    "hours": "Monday to Friday, 7 in the morning to 6 in the evening; Saturday 8 to noon; closed Sunday",
+    "service_area": "Chicago and the suburbs within about 30 miles",
+    "slot_minutes": 60,
+    "callback_promise": "within one business hour during opening hours, or first thing the next morning",
+    "emergency_note": "If you smell gas, see smoke or sparks, or have water near electrical equipment, leave the area and call 911 before anything else."
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "name": "Receptionist End-of-Call Logger",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vapi-end-of-call",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-000000000001",
+      "name": "Vapi Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.body.message.type }}",
+              "rightValue": "end-of-call-report",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-000000000002",
+      "name": "Is end-of-call report?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "s1", "name": "started_at", "value": "={{ $json.body.message.startedAt ?? $json.body.message.call?.startedAt ?? $now.toISO() }}", "type": "string" },
+            { "id": "s2", "name": "caller_phone", "value": "={{ $json.body.message.customer?.number ?? $json.body.message.call?.customer?.number ?? '' }}", "type": "string" },
+            { "id": "s3", "name": "caller_name", "value": "={{ $json.body.message.analysis?.structuredData?.caller_name ?? '' }}", "type": "string" },
+            { "id": "s4", "name": "outcome", "value": "={{ $json.body.message.analysis?.structuredData?.outcome ?? '' }}", "type": "string" },
+            { "id": "s5", "name": "follow_up_needed", "value": "={{ String($json.body.message.analysis?.structuredData?.follow_up_needed ?? '') }}", "type": "string" },
+            { "id": "s6", "name": "summary", "value": "={{ $json.body.message.analysis?.summary ?? $json.body.message.summary ?? '' }}", "type": "string" },
+            { "id": "s7", "name": "duration_sec", "value": "={{ String(Math.round($json.body.message.durationSeconds ?? 0)) }}", "type": "string" },
+            { "id": "s8", "name": "ended_reason", "value": "={{ $json.body.message.endedReason ?? '' }}", "type": "string" },
+            { "id": "s9", "name": "recording_url", "value": "={{ $json.body.message.artifact?.recordingUrl ?? $json.body.message.recordingUrl ?? '' }}", "type": "string" },
+            { "id": "s10", "name": "call_id", "value": "={{ $json.body.message.call?.id ?? '' }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-000000000003",
+      "name": "Pick fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [480, 200]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": { "__rl": true, "mode": "list", "value": "" },
+        "sheetName": { "__rl": true, "mode": "list", "value": "" },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            { "id": "started_at", "displayName": "started_at", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "caller_phone", "displayName": "caller_phone", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "caller_name", "displayName": "caller_name", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "outcome", "displayName": "outcome", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "follow_up_needed", "displayName": "follow_up_needed", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "summary", "displayName": "summary", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "duration_sec", "displayName": "duration_sec", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "ended_reason", "displayName": "ended_reason", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "recording_url", "displayName": "recording_url", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true },
+            { "id": "call_id", "displayName": "call_id", "required": false, "defaultMatch": false, "display": true, "type": "string", "canBeUsedToMatch": true }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-000000000004",
+      "name": "Append to CallLog",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [720, 200]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Vapi Webhook').first().json.body.message.assistant?.metadata?.owner_email ?? 'owner@example.com' }}",
+        "subject": "={{ 'Call from ' + ($json.caller_name || $json.caller_phone || 'unknown caller') + ': ' + ($json.outcome || 'no outcome') }}",
+        "message": "={{ $json.summary + '\\n\\nCaller: ' + $json.caller_name + ' ' + $json.caller_phone + '\\nOutcome: ' + $json.outcome + '\\nFollow-up needed: ' + $json.follow_up_needed + '\\nDuration: ' + $json.duration_sec + ' seconds\\nRecording: ' + $json.recording_url }}",
+        "options": {}
+      },
+      "id": "b1000000-0000-4000-8000-000000000005",
+      "name": "Email the owner",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [960, 200]
+    }
+  ],
+  "connections": {
+    "Vapi Webhook": { "main": [[{ "node": "Is end-of-call report?", "type": "main", "index": 0 }]] },
+    "Is end-of-call report?": { "main": [[{ "node": "Pick fields", "type": "main", "index": 0 }], []] },
+    "Pick fields": { "main": [[{ "node": "Append to CallLog", "type": "main", "index": 0 }]] },
+    "Append to CallLog": { "main": [[{ "node": "Email the owner", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {},
+  "meta": { "instanceId": "import" }
+}

@@ -1,0 +1,89 @@
+VIDEO 2
+Title:   I Built an AI Voice Receptionist with Vapi and n8n MCP (free template)
+Channel: Nate Herk | AI Automation
+URL:     https://www.youtube.com/watch?v=y-cq_Qo4zVo
+Length:  34:21   Views at capture: ~179K
+Monetisation: free Skool community (templates + 15-page guide), paid "plus" community, affiliate tools
+Source:  YouTube English auto-generated captions, captured 2026-11-10. Cleaned: the ASR wrote "Vappy/Vapy/VAP" for Vapi and "Naden/NAND/NIDN/Niten/edit in/NN" for n8n; those are corrected below. ">>" marks the demo call turns.
+
+[0:00] I just built this AI voice receptionist that can do pretty much anything. All of the backend automations are happening thanks to this n8n MCP server that has seven different custom workflows that I built out in n8n. So, in today's video, I'm going to be showing you guys how I configured Vapi on the front end and n8n on the back end and, more importantly, how you can replicate or customize this system. Not only am I giving you guys the system prompt and all the workflows you'll see today for completely free, I'm also chucking in this 15-page resource guide that walks through the entire configuration and pretty much everything you need to know about this system. So let's hop into a live demo and then walk through the build.
+
+[0:25] On the left-hand side we have Vapi. This is Kylie, our Hercules Detailing AI receptionist. On the right-hand side we have our MCP server with these seven custom workflows that we built out in n8n. Before we give Kylie a call, I'm going to pull up the calendar on the left and the CRM on the right so we can see all of this updating in real time. We're going to do two scenarios. I'm going to call in as a new user, have an account created and book an appointment. Then I'm going to call back and ask if I can change that appointment.
+
+[1:00] DEMO CALL 1 (new caller, book appointment)
+>> Kylie: Hi, this is Kylie with Hercules Detailing. Can I please have your email so I can look you up in the system?
+>> Nate: Yeah, I'm actually a new caller, so I won't be in the system.
+>> Kylie: Welcome. Super glad you called Hercules Detailing today. All I need is your email address, your full name, and phone number to get you set up. Don't worry, I'll confirm them with you so we get everything perfect.
+>> Nate: My email is nate@example.com. My name is Nate Herk, spelled with a K at the end. My phone number is 333-444-5678.
+>> Kylie: Awesome. Just to confirm, your email is nate@example.com, your full name is Nate Herk with a K at the end, and phone number is 333-444-5678. Right? Give me one second to send that in and get your profile set up. ... All set, Nate. You're officially in our system. Now, what can I help you with today? Are you looking to book an appointment, have a question, or is there anything else on your mind?
+>> Nate: I'm just looking to schedule an interior detailing for tomorrow.
+>> Kylie: Great choice. Give me one second and I'll check our availability for tomorrow. ... Here's what tomorrow looks like. We do have some time slots already taken: one in the morning from 10:15 to 11:15 and another from 2 to 3, but every other hour-long slot during the day is open. Appointments last one hour. What works best for you?
+>> Nate: Let's do an 8 a.m. slot.
+>> Kylie: Give me one second to process that. ... All right, Nate, you're all set for an interior detailing appointment tomorrow at 8 a.m. Anything else you'd like help with?
+>> Nate: Nope, that's it. Thank you so much.
+
+[3:30] So we can see that all updated in real time. If I go to the call log, this should trigger over a summary of the call as well as the outcome, which was "appointment booked", and the summary was that we set up an account and booked an appointment for 8 a.m. Now another example where I call in and ask to move this appointment.
+
+[3:55] DEMO CALL 2 (existing caller, reschedule)
+>> Kylie: Hi, this is Kylie with Hercules Detailing. Can I please have your email so I can look you up in the system?
+>> Nate: It's nate@example.com.
+>> Kylie: Thanks, Nate. Let me check on that real quick. ... Looks like I found you. Welcome back. What can I help with today?
+>> Nate: I want to move my appointment. Can I bump it an hour later?
+>> Kylie: No problem at all. Let me check on that so we don't double book anyone. ... After bumping your appointment an hour later to 9:00 a.m., that time is totally open. No conflicts. Just to confirm, you're moving your interior detailing appointment? Ready for me to update it to 9:00 a.m.?
+>> Nate: Yeah, that's perfect. Let's do it.
+>> Kylie: Boom. It's done. Your interior detailing appointment is now officially moved to December 7th at 9:00 a.m. and it'll run until 10:00 a.m. Anything else?
+>> Nate: Nope, that's it. Thank you.
+
+[5:35] Give it one sec and we'll see that call come in. The outcome was "appointment rescheduled", and in the appointment log under notes we can see this appointment was moved to 9:00 a.m. Now let's jump into how I built this from scratch.
+
+[6:00] (Editing note) The idea of these systems is to make the experience for the caller as good as possible. But I still think AI systems, inbound or outbound, should start the conversation by saying "Hey, I am Kylie, an AI assistant for Hercules Detailing," because it'll never be perfect with interruptions or little etiquette things. You should always have an AI caller tell the human that it's an AI.
+
+[6:25] In a voice agent there are two main pieces. The front end, the voice AI, which you configure in something like Vapi. And the back end, the actual automations, which here are seven n8n workflows communicated to Vapi through an MCP server trigger. If you've never heard of Vapi, check out my 40-minute beginner's guide first.
+
+[7:00] It all starts with a wireframe or flowchart, because there's so much conditional logic and so many scenarios in a voice conversation. Having "if X do Y" on paper makes system prompting much easier. The flow: an inbound call starts the process. Kylie asks for the caller's email to see if they exist in the CRM, so we need a CRM lookup tool. Two paths: they exist (gather personal info) or they don't (create a CRM entry). Then both paths merge to gather intent: something general Kylie can handle, or something specialized like transferring to sales or customer support. If it stays with Kylie: the caller may ask questions, so Kylie needs a knowledge base, a real document, and that may loop five or six questions. Or they want to do something with appointments: booking, changing, or deleting. Dependencies: booking requires checking availability first; changing requires looking up the appointment and checking availability; deleting requires looking it up first. After any action, we use the CRM to add activity back into the log. After intent is handled, we end the call and log it in our call logger.
+
+[9:20] My first thought was two n8n workflows, a CRM tool and an appointment tool, each with a webhook and an intent check at the beginning. The CRM intent could be look up appointment, add activity, look up client, add new client. The appointment intent could be check availability, create, change, delete. I needed to think about what variables to send to each sub-flow. But I realized I was over-complicating things, because with Vapi and n8n webhooks you have to respond to the webhook, and it became complicated. Instead I could have one MCP server in n8n with access to all the correct workflows.
+
+[10:30] In Vapi, the model is OpenAI GPT-4.1. I found 4.1 a lot smarter and better at following instructions than 4. The first message is Kylie asking for the email. The hard thing about system prompts with voice AI is that it's just prompting and testing, prompting and testing; this is probably the 50th version of the prompt. Vapi's "generate" button can edit your prompt for you, show the diff, and let you accept or discard.
+
+[11:30] How do we connect the two? In Vapi we have a tool for the assistant called n8n, and the system prompt says things like "use the n8n tool to check the CRM" and "use the n8n tool to check for availability." That tool is our MCP server with all seven workflows: client lookup, new client CRM, check availability, book event, update appointment, lookup appointment, delete appointment. Most of these are very simple, one or two nodes; only one has multiple conditional checks. Each tool has one very specific function, and it's up to Vapi and the MCP server to figure out which one to call, so answers come back quick.
+
+[12:35] One thing that makes me cringe when people build voice agents with n8n is building an n8n AI agent in the back end to make decisions. You're doubling the reasoning, cost and latency, because the Vapi system prompt is already an AI agent with a brain. A brain triggering another brain doubles the reasoning and potential errors. By having Vapi control everything and the MCP server just make one quick request, we keep it on guard rails. In all of these backend workflows there's no AI at all. That's how we keep voice agents fast and doing what we want.
+
+[13:30] (Scenario: new account.) It called the client lookup tool and then the new client tool. In n8n executions: the lookup sent mike@dm.com, looked him up, found no record, so nothing was output and it went down the "new client" path and sent back "this is a new client, they don't exist in the CRM." After Vapi confirmed the details, it triggered the new client CRM tool, which logged him in the CRM.
+
+[14:30] How does the MCP server trigger know which tool to call? Vapi sends context, and every tool has an easy description of when to call it and what it does. Having Kylie say something before calling a tool, confirming details, all of that lives in the system prompt, which is attached in the free document. The full live 2-hour step-by-step build is in my plus group.
+
+[15:30] To give Vapi access: Tools, create tool, choose MCP as the integration, name it n8n, paste the MCP server trigger's production URL as the server URL. Add a header named Authorization with the value "Bearer " plus your n8n API key (settings, n8n API, create a key). Switch the transport from streamable HTTP to server-sent events. Then tell it in the system prompt when and how to use that tool.
+
+[16:55] The prompt has identity, style, response guidelines, then tasks and goals with the conditional logic. Initial greeting: greet the caller warmly and ask for their email to look up their profile using the n8n tool. Convert the email to lowercase before the CRM lookup. Before calling the tool you must say something like "let me check on that real quick" to avoid silences, otherwise there are five seconds of dead air. CRM lookup logic: if the client exists, acknowledge them; if new, say we're going to set up an account, confirm the spelling of their name, confirm the information before calling the tool.
+
+[18:00] (Scenario: existing client books.) The client lookup came back with a record, so it went down the true branch, then looked up their email in the appointment log; no previous appointments, so it reported "client exists, no previous appointments." Then Kylie checked availability: it sent over the current time (12:08) and the end of day, searched "get many events" on the calendar, found none, so it reported the entire day is available. After the time was confirmed, the book event tool sent start time, end time, email and summary: it creates the calendar event and adds a row to the Google Sheet appointment log with event ID, email, type, date and notes.
+
+[20:10] In the system prompt for appointment management: for all actions, first check availability with the n8n tool. If it returns "entire day available," inform the client; if it returns specific slots, those are busy times. If checking for today, send the current time up to 23:59:59. If checking a specific future date, use 24-hour format from the beginning to the end of the day. Only tell the caller what times are available, not what the events are titled. After a time is confirmed, inform the client that appointments last one hour. It's really specific guidelines, like a call-center script with conditional logic of what to say and when.
+
+[21:30] (Scenario: update.) She looked us up, I asked to push the appointment back an hour, she checked availability, then looked up our appointment (she called me "buddy", which I didn't love), and when I confirmed she used the update appointment tool. Four executions: client lookup, check availability, lookup appointment (Vapi sends an after-time and before-time window, returns the event so we have the event ID), then update appointment with the event ID and new start and end. It creates the new calendar event and updates the Google Sheet row by matching on event ID, changing the notes to "rescheduled." Delete appointment is the same except it deletes the event and sets the notes to "cancelled."
+
+[23:20] DEMO CALL 3 (transfer)
+>> Kylie: Hi, this is Kylie with Hercules Detailing. Can I please have your email so I can look you up in the system?
+>> Nate: Nope. I don't want to give you my email. I just want to talk to the customer support department because I'm furious.
+>> Kylie: Totally get it. If you'd rather not share your email, that's all good. Would you like me to transfer you to our customer support team right now?
+>> Nate: Yes, please.
+>> Support assistant: Hello, I am customer support.
+
+[24:00] We used a tool called Handoff. When you create a tool, "transfer call" lets you put in a phone number to transfer to a human. "Handoff" lets you hand off to a different internal Vapi assistant. I added a destination to our customer-support specialized agent, and you can have multiple destinations in one handoff tool: customer support, sales, another named agent. Vapi figures out which one from the description: "hand off to this assistant when the caller requests customer support or has a customer-support related inquiry." Orchestrating these systems is all about context, the same way each MCP tool has a description.
+
+[25:30] Knowledge base: a document like "Hercules Detailing policies and FAQs" with business hours, location, contact email. Export as PDF, go to Vapi, files, upload. In the assistant, under the model, add the file. In the system prompt for general question handling: "for general questions about location, business hours, policies, FAQs, use only the information from the Hercules Detailing policies and FAQ using the default query tool. Do not make up any information." The default query tool just means it looks at that file.
+
+[26:45] DEMO CALL 4 (knowledge base)
+>> Nate: I don't want to provide my email right now. I just want to ask about the different services you offer, if you have different tiers.
+>> Kylie: No worries at all. You're welcome to just ask questions. Give me a sec. ... Here's a quick scoop. We've got three main tiers...
+[27:10] She used the default query tool and answered with all of this information because we gave her a source-of-truth file.
+
+[27:20] Why I switched from two workflows to an MCP server: with separate custom tools, you'd do a lot more prompting ("in this case use this tool"), and for each custom tool you'd name it, describe it, configure the webhook address and define the parameters. Create appointment needs email, time, summary; change needs event ID, email, time, summary; delete needs event ID. Any backend change means updating two places. With the MCP server, you only configure how the workflows take inputs; the server trigger exposes the inputs and schemas, and Vapi sends what's needed because the assistant prompt gives it the context.
+
+[28:50] Call logging: the CRM has clients, an appointment log and a call log with times, summaries and outcomes. In the assistant, the three dots, call logs, is great for visibility and testing: you can listen to calls and see what tools were called. To send details to an external logger: Advanced, Messaging, Server settings. I put an n8n webhook production URL there. Under server messages I selected only "end of call report" (you can also send the transcript, tool calls and so on). The end-of-call report includes the analysis: the summary prompt ("you are an expert notetaker, summarize the transcript in two to three sentences") and structured data. We only send an outcome, but you could pluck out email, appointment type, appointment time, as many properties as you want. In n8n, the execution payload body has the summary and the structured data "outcome." Example: "customer called Hercules Detailing to inquire about services and tiers; the AI began explaining the three main tiers; outcome: customer inquired about services." We write that into the Google Sheet with those three fields.
+
+[32:15] Phone number: in Vapi you can grab a free Vapi US number, up to 10 per account, or import numbers you already have. Assign it as an inbound number to the AI receptionist. You can add a fallback destination, or make it an outbound number with different assistants calling out. If you want an outbound voice agent tutorial, tell me use cases.
+
+[33:00] To access the workflows, the document with the system prompt and everything: join the free Skool community, go to YouTube resources or free n8n templates, find the post for this video; the PDF and a zip of JSON workflows are attached. Configure, point it to Vapi, start testing. For unlimited support and 200+ members building with n8n daily, check out the plus community, where the full 2-hour live build is posted, plus a classroom with Agent Zero (foundations), 10 Hours and 10 Seconds (identify, design and build time-saving automations), One Person AI Agency, and Subs to Sales. Thanks everyone.
