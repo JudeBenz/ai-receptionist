@@ -6,7 +6,7 @@ Ordered by what unblocks what. Times are realistic for one person. Costs are typ
 
 | # | Item | Who | Time | Cost | Why it matters for "official" |
 |---|------|-----|------|------|------|
-| 1 | Pick the name. Search it at your state's business-name lookup, the USPTO trademark search, and a domain registrar. | you | 20 min | $0 | You will say it 100 times today. Change it in `business/brand.json` and find-and-replace `EveryCall` across the repo. |
+| 1 | Pick the name. Search it at your state's business-name lookup, the USPTO trademark search, and a domain registrar. | you | 20 min | $0 | You will say it 100 times today. Change it in `business/brand.json` and find-and-replace `AfterRing` across the repo. |
 | 2 | Buy the domain (.com if available, else .co). Cloudflare, Porkbun or Namecheap. | you | 10 min | $10 to $15 a year | A Gmail address loses the call before it starts. |
 | 3 | Business email on that domain. Google Workspace Starter or Zoho Mail free tier. Set the signature from `sales/follow-up-emails.md`. | you | 30 min | $0 to $7 a month | Every follow-up email today comes from it. |
 | 4 | A business phone number for your own calls. Google Voice (free, US) or a second Vapi number forwarded to your cell. Put it in `brand.json`. | you | 15 min | $0 to $2 a month | Owners call back the number that called them. |

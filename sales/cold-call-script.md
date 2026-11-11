@@ -68,7 +68,7 @@ Write the referral down. Thank them. Hang up.
 
 If they won't give it:
 
-> No problem. Could you tell them [Name] from EveryCall called about missed calls after hours, and I'll try again [day]?
+> No problem. Could you tell them [Name] from AfterRing called about missed calls after hours, and I'll try again [day]?
 
 ## Voicemail (under 20 seconds, once per business)
 

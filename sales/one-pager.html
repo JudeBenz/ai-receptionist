@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
-<title>EveryCall One-Pager</title>
-<meta name="description" content="One-page summary of the EveryCall AI receptionist to email after a call or leave behind. Print to PDF from your browser.">
+<title>AfterRing One-Pager</title>
+<meta name="description" content="One-page summary of the AfterRing AI receptionist to email after a call or leave behind. Print to PDF from your browser.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
 <style>
 /* Layout: one US Letter page, two columns, navy header band, orange only on the price and the offer. Prints to one page from Chrome or Edge. */
@@ -61,7 +61,7 @@ ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 
 <div class="page">
   <div class="band">
     <div>
-      <div class="logo"><span></span><span data-brand="company">EveryCall</span></div>
+      <div class="logo"><span></span><span data-brand="company">AfterRing</span></div>
       <h1>The receptionist that answers when yours can't.</h1>
     </div>
     <div class="demo"><b>Hear it now</b><div class="num" data-brand="demo">(555) 010-0100</div><div class="muted" style="color:var(--ink-muted);font-size:0.85rem">Call it. Try to confuse it.</div></div>
@@ -134,12 +134,12 @@ ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 
   </div>
 
   <div class="contact">
-    <div><b data-brand="owner">[Your name]</b> · <span data-brand="company">EveryCall</span></div>
-    <div><span data-brand="phone">(555) 010-0100</span> · <span data-brand="email">hello@everycall.example</span> · <span data-brand="website">everycall.example</span></div>
+    <div><b data-brand="owner">[Your name]</b> · <span data-brand="company">AfterRing</span></div>
+    <div><span data-brand="phone">(555) 010-0100</span> · <span data-brand="email">hello@afterring.example</span> · <span data-brand="website">afterring.example</span></div>
   </div>
 </div>
 <script>
-const BRAND = { company: "EveryCall", owner: "[Your name]", city: "[City]", phone: "(555) 010-0100", demo: "(555) 010-0100", email: "hello@everycall.example", website: "everycall.example" };
+const BRAND = { company: "AfterRing", owner: "[Your name]", city: "[City]", phone: "(555) 010-0100", demo: "(555) 010-0100", email: "hello@afterring.example", website: "afterring.example" };
 document.querySelectorAll("[data-brand]").forEach(el => { const v = BRAND[el.dataset.brand]; if (v) el.textContent = v; });
 </script>
 </body>

@@ -1,14 +1,14 @@
 {
-  "_note": "Working brand. Change the name once, then find-and-replace 'EveryCall' across site/, sales/ and deck/. Check the domain and your state's business-name search before printing anything.",
-  "company": "EveryCall",
+  "_note": "Working brand. Change the name once, then find-and-replace 'AfterRing' across site/, sales/ and deck/. Check the domain and your state's business-name search before printing anything.",
+  "company": "AfterRing",
   "legal_name": "[Your legal name or LLC]",
   "tagline": "The receptionist that answers when yours can't.",
   "owner": "[Your name]",
   "city": "[City, State]",
   "phone": "[(555) 010-0100]",
   "demo_number": "[(555) 010-0100]",
-  "email": "[you@everycall.example]",
-  "website": "[https://everycall.example]",
+  "email": "[you@afterring.example]",
+  "website": "[https://afterring.example]",
   "booking_link": "[https://calendly.com/your-link/15min]",
   "verticals": ["HVAC", "plumbing", "law firms"],
   "tiers": [

@@ -6,14 +6,14 @@ Signature to use everywhere:
 
 ```
 [Your name]
-EveryCall · AI receptionists for [HVAC, plumbing and legal] in [City]
+AfterRing · AI receptionists for [HVAC, plumbing and legal] in [City]
 [phone] · [email] · [website]
 Hear it answer: call [demo number]
 ```
 
 ## Email 1: demo booked (send within five minutes of the call)
 
-Subject: Your EveryCall demo, [Thursday 10:00]
+Subject: Your AfterRing demo, [Thursday 10:00]
 
 Hi [First name],
 
@@ -86,7 +86,7 @@ The agreement is attached, one page. Reply "go" and I'll send the kick-off quest
 ## Text message templates (only after they've given you their mobile)
 
 Demo reminder, the morning of:
-> Hi [First name], [Your name] from EveryCall. Still good for [10:00] today? The number to call is [demo number]. Reply if you need to move it.
+> Hi [First name], [Your name] from AfterRing. Still good for [10:00] today? The number to call is [demo number]. Reply if you need to move it.
 
 After "send me info":
 > Hi [First name], [Your name] here, just sent the one-pager to [email]. Demo line is [demo number] if you've got two minutes.

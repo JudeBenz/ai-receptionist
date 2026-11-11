@@ -4,7 +4,7 @@ This is a plain-language starting point, not legal advice. Have a lawyer in your
 
 ---
 
-**Provider:** EveryCall, [legal name], [address], [email], [phone]
+**Provider:** AfterRing, [legal name], [address], [email], [phone]
 **Client:** [Business legal name], [address], represented by [name, title]
 **Date:** [date]
 
