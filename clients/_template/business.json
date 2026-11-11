@@ -1,0 +1,46 @@
+{
+  "slug": "client-slug",
+  "assistant_name": "Kylie",
+  "voice_id": "Paige",
+  "business": {
+    "name": "Client Business Name",
+    "type": "heating and air-conditioning company",
+    "city": "City",
+    "timezone": "America/New_York",
+    "hours": "Monday to Friday, 7 in the morning to 6 in the evening; Saturday 8 to noon; closed Sunday",
+    "service_area": "City and towns within about 25 miles",
+    "slot_minutes": 60,
+    "callback_promise": "within one business hour during opening hours, or first thing the next morning",
+    "emergency_note": "If you smell gas, see smoke or sparks, or have water near electrical equipment, leave the area and call 911 before anything else."
+  },
+  "contact": {
+    "owner_name": "",
+    "owner_email": "",
+    "owner_mobile": "",
+    "summary_recipients": []
+  },
+  "phone": {
+    "existing_number": "+1",
+    "carrier": "",
+    "answer_after_seconds": 15,
+    "after_hours": true,
+    "transfer_number": "+1",
+    "vapi_number": ""
+  },
+  "google": {
+    "calendar_id": "",
+    "sheet_id": "",
+    "clients_tab": "Clients",
+    "calllog_tab": "CallLog"
+  },
+  "dates": {
+    "signed": "",
+    "kickoff": "",
+    "go_live": "",
+    "pilot_review": ""
+  },
+  "plan": {
+    "name": "Growth",
+    "price": 497
+  }
+}

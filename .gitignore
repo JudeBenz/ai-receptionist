@@ -1,6 +1,13 @@
 # secrets
 .env
+clients/*/.env
 *.pem
+
+# real client folders stay out of git unless you decide otherwise; the template is tracked
+clients/*
+!clients/README.md
+!clients/_template/
+!clients/_template/**
 
 # node
 node_modules/

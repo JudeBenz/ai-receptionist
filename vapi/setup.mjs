@@ -2,18 +2,26 @@
 // Creates (or updates) the Vapi assistant from config/business.json, prompts/system-prompt.md
 // and knowledge/business-faq.md. Needs Node 18+ (uses global fetch, FormData and Blob).
 //
-//   node vapi/setup.mjs            create a new assistant, print its id
-//   node vapi/setup.mjs --update   update the assistant whose id is in .env (VAPI_ASSISTANT_ID)
-//   node vapi/setup.mjs --dry-run  print the payload and exit without calling Vapi
+//   node vapi/setup.mjs                      create the demo assistant from config/ and knowledge/
+//   node vapi/setup.mjs --client <slug>      create a client's assistant from clients/<slug>/
+//   node vapi/setup.mjs [--client x] --update   update the assistant whose id is in the .env in use
+//   node vapi/setup.mjs [--client x] --dry-run  print the payload and exit without calling Vapi
 //
-// Secrets come from .env next to this folder (see .env.example). Nothing is hard-coded.
+// Secrets come from .env at the repo root (VAPI_API_KEY) and, with --client, from clients/<slug>/.env,
+// which overrides the root values. Nothing is hard-coded.
 
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const args = new Set(process.argv.slice(2));
+const argv = process.argv.slice(2);
+const clientIdx = argv.indexOf('--client');
+const client = clientIdx > -1 ? argv[clientIdx + 1] : null;
+if (clientIdx > -1 && (!client || client.startsWith('--'))) { console.error('--client needs a slug'); process.exit(1); }
+const clientDir = client ? resolve(root, 'clients', client) : null;
+if (clientDir && !existsSync(clientDir)) { console.error(`No clients/${client}. Run scripts/new-client.mjs first.`); process.exit(1); }
+const args = new Set(argv.filter(a => a.startsWith('--')));
 const API = 'https://api.vapi.ai';
 
 // ---------- .env ----------
@@ -32,7 +40,11 @@ function loadEnv(file) {
   }
   return out;
 }
-const env = { ...loadEnv(resolve(root, '.env')), ...process.env };
+const env = {
+  ...loadEnv(resolve(root, '.env')),
+  ...(clientDir ? loadEnv(resolve(clientDir, '.env')) : {}),
+  ...process.env,
+};
 
 function need(name) {
   if (!env[name]) {
@@ -43,8 +55,14 @@ function need(name) {
 }
 
 // ---------- config and prompt ----------
-const config = JSON.parse(readFileSync(resolve(root, 'config/business.json'), 'utf8'));
+const configPath = clientDir ? resolve(clientDir, 'business.json') : resolve(root, 'config/business.json');
+const faqPath = clientDir ? resolve(clientDir, 'business-faq.md') : resolve(root, 'knowledge/business-faq.md');
+const config = JSON.parse(readFileSync(configPath, 'utf8'));
 const promptTemplate = readFileSync(resolve(root, 'prompts/system-prompt.md'), 'utf8');
+// A client's business.json can carry the transfer number and owner email; a .env value still wins.
+if (!env.TRANSFER_NUMBER && config.phone?.transfer_number && config.phone.transfer_number.length > 3) env.TRANSFER_NUMBER = config.phone.transfer_number;
+if (!env.OWNER_EMAIL && config.contact?.owner_email) env.OWNER_EMAIL = config.contact.owner_email;
+console.log(client ? `Client: ${client} (${configPath})` : `Demo assistant (${configPath})`);
 
 function lookup(obj, path) {
   return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
@@ -66,9 +84,8 @@ const firstMessage =
 
 // ---------- knowledge file upload ----------
 async function uploadFaq(apiKey) {
-  const path = resolve(root, 'knowledge/business-faq.md');
   const form = new FormData();
-  form.append('file', new Blob([readFileSync(path)], { type: 'text/markdown' }), 'business-faq.md');
+  form.append('file', new Blob([readFileSync(faqPath)], { type: 'text/markdown' }), `${client || 'demo'}-business-faq.md`);
   const res = await fetch(`${API}/file`, { method: 'POST', headers: { Authorization: `Bearer ${apiKey}` }, body: form });
   if (!res.ok) throw new Error(`File upload failed: ${res.status} ${await res.text()}`);
   const json = await res.json();
@@ -181,9 +198,9 @@ async function main() {
 
   let fileId = env.VAPI_FAQ_FILE_ID || null;
   if (!dryRun && !fileId) {
-    console.log('Uploading knowledge/business-faq.md ...');
+    console.log(`Uploading ${faqPath} ...`);
     fileId = await uploadFaq(apiKey);
-    console.log(`  file id ${fileId}  (put VAPI_FAQ_FILE_ID=${fileId} in .env to reuse it)`);
+    console.log(`  file id ${fileId}  (put VAPI_FAQ_FILE_ID=${fileId} in ${client ? `clients/${client}/.env` : '.env'} to reuse it)`);
   }
 
   const payload = buildPayload({ fileId });
@@ -207,8 +224,9 @@ async function main() {
   const assistant = JSON.parse(text);
   console.log(`${update ? 'Updated' : 'Created'} assistant ${assistant.id}`);
   console.log(`Open it: https://dashboard.vapi.ai/assistants/${assistant.id}`);
-  if (!update) console.log(`Add VAPI_ASSISTANT_ID=${assistant.id} to .env so --update works.`);
-  console.log('Next: Dashboard > Phone Numbers > create a free number > Inbound settings > choose this assistant.');
+  if (!update) console.log(`Add VAPI_ASSISTANT_ID=${assistant.id} to ${client ? `clients/${client}/.env` : '.env'} so --update works.`);
+  console.log('Next: Dashboard > Phone Numbers > create a number > Inbound settings > choose this assistant,');
+  console.log(`      and set its fallback destination to the hand-over number (${env.TRANSFER_NUMBER}).`);
 }
 
 main().catch((e) => {

@@ -15,6 +15,9 @@ receptionist/
   vapi/setup.mjs                creates/updates the Vapi assistant from the files above
   tests/test-calls.md           the six calls to make before showing anyone
   .env.example                  copy to .env
+  clients/                      one folder per client (scaffold: scripts/new-client.mjs)
+  scripts/                      new-client.mjs, n8n-for-client.mjs
+  ops/                          delivery playbook, questionnaire, go-live checklist, report templates
 ```
 
 ## What you need
@@ -70,6 +73,10 @@ Then in the Vapi dashboard: Phone Numbers, create a free number, Inbound setting
 ### 5. Test
 
 Work through `tests/test-calls.md`. After each call, check the Vapi call log (transcript and tool calls), the calendar, the `Clients` and `CallLog` tabs, and the owner email. Every hesitation in a transcript is a line to add to the FAQ or the prompt.
+
+## Serving a real client
+
+The steps above build the demo. For a paying client, follow ops/delivery-playbook.md: scaffold a folder with scripts/new-client.mjs, fill it from ops/onboarding-questionnaire.md, generate that client's n8n workflows with scripts/n8n-for-client.mjs, create the assistant with vapi/setup.mjs --client <slug>, test, then set call forwarding with ops/go-live-checklist.md.
 
 ## How a call runs
 

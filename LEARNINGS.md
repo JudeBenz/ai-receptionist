@@ -55,3 +55,10 @@ HighLevel (two of the three videos) bundles voice, CRM, snapshots and rebilling 
 - `business/` the working brand config and the launch checklist for the company around the product.
 - `sales/` the cold-call script and day plan, call tracker, lead-list template, follow-up emails, one-pager and the service agreement draft.
 - `site/` the one-page website, deployable as static files.
+- `ops/` the client delivery playbook (yes to day 30), onboarding questionnaire, go-live checklist with call-forwarding codes, welcome email, staff one-pager, weekly report and day-30 review templates.
+- `clients/` one folder per client, scaffolded from `clients/_template/`; real client folders and their `.env` stay out of git.
+- `scripts/` `new-client.mjs` (scaffold), `n8n-for-client.mjs` (per-client workflow files with calendar, sheet and paths prefilled); `vapi/setup.mjs --client <slug>` builds that client's assistant.
+
+## How a client actually gets served
+
+One assistant, one Vapi number, two n8n workflows, one calendar and one sheet per client, generated from the client folder. The client keeps their number; their carrier forwards unanswered calls to the Vapi number after about 15 seconds. Agency-owned Google account holds every client's calendar and sheet, shared to the client, so there is one credential in n8n and no OAuth dance per client. Forwarding off is the rollback.
