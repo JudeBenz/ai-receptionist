@@ -1,0 +1,92 @@
+{
+  "_purpose": "Non-secret facts an assistant needs to set up AfterRing's accounts. Secrets never go here.",
+  "brand": {
+    "name": "AfterRing",
+    "tagline": "The receptionist that answers when yours can't.",
+    "what_it_is": "An AI phone receptionist for HVAC companies, plumbers and small law firms. Inbound only. It answers calls the business misses after about 15 seconds or after hours, books on a calendar, and emails the owner a summary.",
+    "state": "Massachusetts, USA",
+    "timezone": "America/New_York",
+    "compliance": [
+      "Always discloses it is an AI in the greeting and when asked",
+      "States that calls may be recorded (Massachusetts is an all-party consent state)",
+      "Inbound only; never place outbound calls or send marketing texts",
+      "No SMS to callers until 10DLC registration is done"
+    ]
+  },
+  "domain": {
+    "preferred": "afterring.co",
+    "status_when_checked": "unregistered on 2026-11-10 (afterring.com and afterring.ai were taken)",
+    "registrar_options": ["Cloudflare Registrar", "Porkbun", "Namecheap"],
+    "budget_per_year_usd": 15
+  },
+  "email": {
+    "provider_preferred": "Google Workspace Business Starter",
+    "mailbox_to_create": "hello@afterring.co",
+    "dns_records": {
+      "mx": "as provided by Google Workspace during verification",
+      "spf": "v=spf1 include:_spf.google.com ~all",
+      "dkim": "generate in Google Admin, Apps, Google Workspace, Gmail, Authenticate email",
+      "dmarc": "v=DMARC1; p=none; rua=mailto:hello@afterring.co"
+    }
+  },
+  "booking": {
+    "tool_options": ["Calendly free", "Cal.com free"],
+    "event_name": "AfterRing demo, 15 min",
+    "availability": "Thursday and Friday, 9:00 to 17:00 Eastern, 15 minute buffer"
+  },
+  "outbound_number": {
+    "purpose": "the owner's own sales calls, dialed by hand",
+    "options": ["Google Voice (free, US)", "a second Vapi number forwarded to the owner's cell"]
+  },
+  "google_demo_resources": {
+    "calendar_name": "Service visits · Demo",
+    "sheet_name": "Demo · Receptionist CRM",
+    "sheet_tabs": {
+      "Clients": ["phone", "name", "email", "address", "created_at", "source"],
+      "CallLog": ["started_at", "caller_phone", "caller_name", "outcome", "follow_up_needed", "summary", "duration_sec", "ended_reason", "recording_url", "call_id"]
+    },
+    "phone_format_in_sheet": "E.164, e.g. +16175550123"
+  },
+  "n8n": {
+    "plan_recommendation": "n8n Cloud trial, then Starter (about $24/month); self-host only if a public URL already exists",
+    "workflows_to_import": ["n8n/receptionist-mcp-server.json", "n8n/end-of-call-logger.json"],
+    "credentials_needed": ["Google OAuth (Calendar + Sheets) on the new Google account", "Gmail OAuth on the same account", "Bearer Auth on the MCP Server Trigger with a long random token"],
+    "mcp_trigger_node_name": "MCP Server Trigger",
+    "after_activation_collect": ["MCP Server Trigger production URL and whether it ends in /sse", "Webhook node production URL"]
+  },
+  "vapi": {
+    "signup": "https://vapi.ai",
+    "create": ["private API key (store only in .env as VAPI_API_KEY)", "one free US phone number"],
+    "assistant_creation": "NOT by hand. The owner runs: node vapi/setup.mjs --dry-run, then node vapi/setup.mjs. It prints the assistant id.",
+    "after_assistant_exists": "Phone Numbers, the number, Inbound: select the assistant; set fallback destination to the owner's cell",
+    "env_lines_the_script_needs": ["VAPI_API_KEY", "N8N_MCP_URL", "N8N_MCP_PROTOCOL (sse or shttp)", "N8N_MCP_TOKEN", "VAPI_SERVER_URL", "TRANSFER_NUMBER (+1...)", "OWNER_EMAIL"]
+  },
+  "website": {
+    "source": "site/index.html",
+    "hosting_options": ["Netlify Drop", "Cloudflare Pages", "GitHub Pages from a public repo"],
+    "form_endpoint_options": ["Formspree", "Basin", "Web3Forms"],
+    "values_to_edit_in_BRAND_block": ["company", "legal", "city", "phone", "demo", "email", "booking", "formEndpoint"]
+  },
+  "presence": {
+    "google_business_profile": { "name": "AfterRing", "category": "Telephone answering service", "service_area": "Massachusetts" },
+    "linkedin": { "name": "AfterRing", "tagline": "The receptionist that answers when yours can't", "industry": "Telecommunications" }
+  },
+  "pricing": {
+    "currency": "USD",
+    "tiers": [
+      { "name": "Starter", "monthly": 297 },
+      { "name": "Growth", "monthly": 497, "default": true },
+      { "name": "Pro", "monthly": 997 }
+    ],
+    "pilot": "30 days; no fee if it has not booked one job by day 30"
+  },
+  "test_calls": [
+    "New caller books a visit: asks name and number, reads them back, offers two times inside hours, confirms, books",
+    "Same caller moves it an hour later: recognised by number, checks availability, updates",
+    "Interrupt it and ask for a price it does not have: stops, gives only ranges from the FAQ, says it does not offer the service",
+    "Ask if it is a robot: says plainly it is an AI assistant",
+    "Refuse to give a name and demand a person: offers transfer without insisting on details",
+    "Say 'I smell gas': says leave the area and call 911 first, then offers transfer or booking"
+  ],
+  "later_not_today": ["Massachusetts single-member LLC and EIN", "business bank account", "Stripe account with three payment links", "10DLC registration"]
+}

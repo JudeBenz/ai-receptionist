@@ -1,10 +1,25 @@
 # Prompt for ChatGPT: do the account setup
 
-Paste everything below the line into ChatGPT (agent mode or a browsing-capable model works best, since most steps happen on websites you are signed in to). When it asks for a file, paste the file from this repo. When it finishes, paste its "values collected" table back to Claude Code so the repo can be filled in.
+Paste everything below the line into ChatGPT (agent mode or a browsing-capable model works best, since most steps happen on websites you are signed in to). Everything it needs is in the repo under `handoff/`; the prompt tells it where to look. If the repo is private and ChatGPT cannot open it, either sign in to GitHub in its browser or paste the files it names. When it finishes, paste its filled status table back to Claude Code so the repo can be updated.
 
 ---
 
-You are helping me set up the accounts and services for a small business called **AfterRing**, an AI phone receptionist for HVAC companies, plumbers and small law firms in Massachusetts. It answers only the calls a business misses, books the job on a calendar, and emails the owner a summary. The software is already built and sits in a private GitHub repo on my computer (`ai-receptionist`): a Vapi assistant definition, two n8n workflows, a setup script, a website, and a sales kit. What is missing is every account, key, number and domain, because those need me logged in. That is your job: walk me through each step in order, do the clicking where you can in sites I am signed in to, and collect the resulting values.
+You are helping me set up the accounts and services for a small business called **AfterRing**, an AI phone receptionist for HVAC companies, plumbers and small law firms in Massachusetts. It answers only the calls a business misses, books the job on a calendar, and emails the owner a summary. The software is already built: a Vapi assistant definition, two n8n workflows, a setup script, a website and a sales kit. What is missing is every account, key, number and domain, because those need me logged in. That is your job: walk me through each step in order, do the clicking where you can in sites I am signed in to, and collect the resulting values.
+
+## Where to look
+
+Everything you need is in my GitHub repository: `https://github.com/JudeBenz/ai-receptionist`. Raw files are at `https://raw.githubusercontent.com/JudeBenz/ai-receptionist/main/<path>`. Read these first, in this order, and do not ask me for anything they already answer:
+
+1. `handoff/README.md`: the file map.
+2. `handoff/facts.json`: every non-secret fact (brand, domain, email to create, DNS records, Google names and sheet headers, n8n and Vapi steps, pricing, the six test calls).
+3. `.env.example`: the lines I will fill on my computer with secrets.
+4. `n8n/receptionist-mcp-server.json` and `n8n/end-of-call-logger.json`: the two workflows to import.
+5. `tests/test-calls.md`: the test calls and pass criteria.
+6. `README.md`: how the Vapi assistant is created by script.
+
+If the repository is private and you cannot read it, tell me, and I will either sign in to GitHub in your browser or paste the file you name. Do not guess at file contents.
+
+When you finish, fill in `handoff/status-template.md` as a table and give it to me to paste back.
 
 ## Rules
 
@@ -32,13 +47,13 @@ You are helping me set up the accounts and services for a small business called 
 
 In the new Google account:
 - Create a calendar named `Service visits · Demo`. Open its settings and copy its Calendar ID (looks like `xxxx@group.calendar.google.com`).
-- Create a Google Sheet named `Demo · Receptionist CRM` with two tabs. Tab `Clients`, row 1 headers exactly: `phone, name, email, address, created_at, source`. Tab `CallLog`, row 1 headers exactly: `started_at, caller_phone, caller_name, outcome, follow_up_needed, summary, duration_sec, ended_reason, recording_url, call_id`. Copy the sheet ID from its URL (the long string between `/d/` and `/edit`).
+- Create a Google Sheet named `Demo · Receptionist CRM` with the two tabs and exact headers listed under `google_demo_resources` in `handoff/facts.json` (also in `n8n/google-sheet-layout.md`). Copy the sheet ID from its URL (the long string between `/d/` and `/edit`).
 - Values to collect: calendar ID, sheet ID.
 
 ## Step 4: n8n (45 minutes)
 
 - Create an n8n account. n8n Cloud has a free trial and then starts at about $24 a month; self-hosting is free but needs a server with a public URL. Recommend Cloud for the first client and tell me the trial length.
-- Import the two workflow files I will paste when you ask: `n8n/receptionist-mcp-server.json` and `n8n/end-of-call-logger.json` (Workflows, Import from file or paste JSON).
+- Import the two workflow files from the repo, `n8n/receptionist-mcp-server.json` and `n8n/end-of-call-logger.json` (Workflows, Import from URL using the raw link, or Import from file after I download them).
 - In the first workflow, every tool node needs: the Google Calendar or Google Sheets credential (create one Google OAuth credential by signing in with the new Google account and reuse it everywhere), the calendar from step 3, and the sheet and tab `Clients`. Open the node named `MCP Server Trigger`, set authentication to Bearer Auth, create a credential whose token is a long random string (generate one, tell me to store it as `N8N_MCP_TOKEN` in `.env`, never show it here again), save, activate the workflow, and copy the **Production URL** shown on the trigger. Note whether the URL ends in `/sse`.
 - In the second workflow: the Google Sheets node gets the sheet and tab `CallLog`; the Gmail node gets a Gmail OAuth credential on the same account and the recipient `hello@afterring.co`; the Webhook node, once activated, shows a Production URL. Copy it.
 - Values to collect: n8n plan and trial end date, MCP production URL, whether it ends in /sse, webhook production URL.
@@ -76,26 +91,6 @@ Have me call the Vapi number from my phone and run these six, one at a time, and
 
 ## Values collected (fill this at the end)
 
-| Item | Value |
-|------|-------|
-| Domain and registrar | |
-| Business email | |
-| DNS verified | |
-| Outbound number | |
-| Booking link | |
-| Demo calendar ID | |
-| Demo sheet ID | |
-| n8n plan, trial ends | |
-| MCP production URL (+ sse or shttp) | |
-| Webhook production URL | |
-| Vapi number | |
-| Vapi assistant ID | |
-| Vapi pricing seen | |
-| Test calls passed (of 6) | |
-| Website live URL | |
-| Form endpoint URL | |
-| Google Business Profile URL | |
-| LinkedIn page URL | |
-| Secrets stored (name and file, never the value) | |
+Use the table in `handoff/status-template.md`. Every non-secret value goes in it; secrets are listed by name and file only.
 
-Start with step 1. Before each step, tell me what you are about to do and what it will cost.
+Start by reading the files under "Where to look", then begin step 1. Before each step, tell me what you are about to do and what it will cost.
