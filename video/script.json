@@ -1,0 +1,344 @@
+{
+  "_note": "Everything the video says and shows. Edit text here, then run `npm run build` in video/. Timings come from the synthesised audio, so scenes stretch to fit their lines. Placeholders in square brackets are read from ../business/brand.json at build time.",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "voices": {
+    "narrator": {
+      "voice": "en-US-AndrewNeural",
+      "rate": "+5%",
+      "pitch": "-2Hz"
+    },
+    "receptionist": {
+      "voice": "en-US-AvaNeural",
+      "rate": "+12%",
+      "pitch": "+0Hz"
+    },
+    "caller": {
+      "voice": "en-US-ChristopherNeural",
+      "rate": "+10%",
+      "pitch": "-1Hz"
+    }
+  },
+  "flash": {
+    "frames": 3,
+    "colors": [
+      "white",
+      "orange"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "logo",
+      "type": "logo",
+      "minDuration": 1.7,
+      "flash": false,
+      "lines": []
+    },
+    {
+      "id": "shop",
+      "type": "shop",
+      "leadIn": 0.4,
+      "tail": 0.6,
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Tuesday, two o'clock. Your whole crew is out on a job. And the phone is ringing."
+        },
+        {
+          "speaker": "narrator",
+          "gap": 0.5,
+          "text": "Nobody picks up. So they hang up, and call the next name on Google."
+        }
+      ],
+      "events": [
+        {
+          "id": "ring1",
+          "after": "start",
+          "offset": 0
+        },
+        {
+          "id": "ring2",
+          "after": "start",
+          "offset": 2.6
+        },
+        {
+          "id": "hangup",
+          "after": "line:1",
+          "offset": -2.6
+        },
+        {
+          "id": "competitor",
+          "after": "line:1",
+          "offset": -1.3
+        }
+      ],
+      "text": {
+        "caption": "Your shop, 2:00 pm. Everyone is on a job.",
+        "hangup": "Caller hangs up\nafter 15 seconds.",
+        "competitor": "Calls the next name on Google."
+      }
+    },
+    {
+      "id": "problem",
+      "type": "statement",
+      "leadIn": 0.3,
+      "tail": 1,
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Most missed callers never call back."
+        }
+      ],
+      "text": {
+        "headline": "Most missed callers\nnever call back.",
+        "sub": "They call whoever picks up."
+      }
+    },
+    {
+      "id": "what",
+      "type": "flow",
+      "leadIn": 0.3,
+      "tail": 0.8,
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "AfterRing is an AI receptionist that answers only the calls you miss."
+        },
+        {
+          "speaker": "narrator",
+          "gap": 0.3,
+          "text": "After fifteen seconds unanswered, or after hours, it picks up in your company's name."
+        }
+      ],
+      "events": [
+        {
+          "id": "step1",
+          "after": "start",
+          "offset": 0.2
+        },
+        {
+          "id": "step2",
+          "after": "line:0",
+          "offset": -1.4
+        },
+        {
+          "id": "step3",
+          "after": "line:1",
+          "offset": -3.6
+        },
+        {
+          "id": "step4",
+          "after": "line:1",
+          "offset": -1.6
+        }
+      ],
+      "text": {
+        "headline": "It answers only the calls you miss.",
+        "steps": [
+          {
+            "title": "Call comes in",
+            "sub": "Your desk or cell rings as normal."
+          },
+          {
+            "title": "Your team answers",
+            "sub": "Those calls never touch it."
+          },
+          {
+            "title": "15 seconds, or after hours",
+            "sub": "Nobody picked up."
+          },
+          {
+            "title": "AfterRing picks up",
+            "sub": "In your company's name."
+          }
+        ]
+      }
+    },
+    {
+      "id": "call",
+      "type": "call",
+      "leadIn": 0.8,
+      "tail": 0.8,
+      "lines": [
+        {
+          "speaker": "receptionist",
+          "text": "Northwind Heating, this is Kylie. I'm an AI assistant, and this call may be recorded. How can I help?"
+        },
+        {
+          "speaker": "caller",
+          "gap": 0.3,
+          "text": "Our heat just went out. It's freezing in here."
+        },
+        {
+          "speaker": "receptionist",
+          "gap": 0.25,
+          "text": "Sorry to hear that. Let's get someone out. Can I get your name, and is this the best number to reach you?"
+        },
+        {
+          "speaker": "caller",
+          "gap": 0.3,
+          "text": "Dana Reyes. And yeah, this number's fine."
+        },
+        {
+          "speaker": "receptionist",
+          "gap": 0.25,
+          "text": "Thanks, Dana. I have tomorrow at eight, or eleven thirty. Which works?"
+        },
+        {
+          "speaker": "caller",
+          "gap": 0.25,
+          "text": "Eight."
+        },
+        {
+          "speaker": "receptionist",
+          "gap": 0.25,
+          "text": "You're booked for eight tomorrow morning. Someone will confirm before the visit."
+        }
+      ],
+      "text": {
+        "label": "Simulated call",
+        "business": "Northwind Heating and Air",
+        "businessSub": "Sample business. Voices are synthesised.",
+        "callerName": "Dana Reyes",
+        "callerNumber": "(617) 555-0198",
+        "status": "Incoming call, forwarded after 15 s",
+        "receptionistName": "Kylie · AI receptionist",
+        "booked": "Booked: tomorrow 8:00 am"
+      }
+    },
+    {
+      "id": "owner",
+      "type": "owner",
+      "leadIn": 0.3,
+      "tail": 1,
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Before the call ends, you get the summary by email, and the job is on your calendar."
+        }
+      ],
+      "events": [
+        {
+          "id": "email",
+          "after": "start",
+          "offset": 0.5
+        },
+        {
+          "id": "calendar",
+          "after": "line:0",
+          "offset": -1.6
+        }
+      ],
+      "text": {
+        "headline": "You see every call. Without stopping work.",
+        "emailFrom": "AfterRing",
+        "emailSubject": "New booking: Dana Reyes, no heat, tomorrow 8:00 am",
+        "emailBody": [
+          "Dana Reyes called at 2:04 pm: no heat, says it is freezing.",
+          "Booked a service visit tomorrow at 8:00 am.",
+          "Call back: (617) 555-0198. Full transcript attached."
+        ],
+        "calTitle": "Service visit: Dana Reyes, no heat",
+        "calWhen": "8:00 to 9:00 am",
+        "calPhone": "(617) 555-0198",
+        "calSource": "Booked by AfterRing"
+      }
+    },
+    {
+      "id": "not",
+      "type": "list",
+      "leadIn": 0.3,
+      "tail": 0.8,
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "It never replaces your staff."
+        },
+        {
+          "speaker": "narrator",
+          "gap": 0.25,
+          "text": "It never cold-calls."
+        },
+        {
+          "speaker": "narrator",
+          "gap": 0.25,
+          "text": "And you keep your own number."
+        }
+      ],
+      "text": {
+        "headline": "What it is not.",
+        "items": [
+          {
+            "title": "It never replaces your staff.",
+            "sub": "If a person can answer, they should. It runs the gap."
+          },
+          {
+            "title": "It never cold-calls.",
+            "sub": "Inbound only. No marketing texts."
+          },
+          {
+            "title": "You keep your own number.",
+            "sub": "Forwarding on is setup. Forwarding off is the rollback."
+          }
+        ]
+      }
+    },
+    {
+      "id": "offer",
+      "type": "offer",
+      "leadIn": 0.3,
+      "tail": 1,
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "Try it for thirty days. If it hasn't booked you one job by day thirty, you owe nothing."
+        },
+        {
+          "speaker": "narrator",
+          "gap": 0.4,
+          "text": "After that, the Growth plan is four ninety-seven a month. Flat."
+        }
+      ],
+      "events": [
+        {
+          "id": "price",
+          "after": "line:1",
+          "offset": -3
+        }
+      ],
+      "text": {
+        "headline": "30-day pilot.",
+        "sub": "No fee if it hasn't booked one job by day 30.",
+        "planName": "Growth plan",
+        "planPrice": "$497",
+        "planUnit": "a month, flat",
+        "planSub": "Set-up included. No contract past the first 30 days."
+      }
+    },
+    {
+      "id": "end",
+      "type": "end",
+      "leadIn": 0.5,
+      "tail": 2.4,
+      "lines": [
+        {
+          "speaker": "narrator",
+          "text": "AfterRing. The receptionist that answers when yours can't."
+        },
+        {
+          "speaker": "narrator",
+          "gap": 0.4,
+          "text": "Call the demo number, and try to confuse it."
+        }
+      ],
+      "text": {
+        "demoLabel": "Hear it now",
+        "demoNumber": "[demo_number]",
+        "email": "[email]",
+        "booking": "[booking_link]",
+        "footer": "It says it is an AI. Calls may be recorded. Inbound only."
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "afterring-pitch-video",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Builds the AfterRing pitch video: synthesised voices, generated music and SFX, GDI+ frames, ffmpeg encode.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "audio": "node build.mjs --audio-only",
+    "frames": "node build.mjs --frames-only",
+    "encode": "node build.mjs --encode-only"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "msedge-tts": "^2.1.0"
+  }
+}

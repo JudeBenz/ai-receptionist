@@ -17,3 +17,6 @@ dry.json
 *.log
 .DS_Store
 Thumbs.db
+
+# video build intermediates (frames, wav, cached voice clips)
+video/build/
