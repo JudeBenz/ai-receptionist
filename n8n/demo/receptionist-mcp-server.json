@@ -1,0 +1,366 @@
+{
+  "name": "Receptionist MCP Server · AfterRing demo",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "receptionist-demo",
+        "authentication": "bearerAuth"
+      },
+      "id": "a1000000-0000-4000-8000-000000000001",
+      "name": "MCP Server Trigger",
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Find an existing customer by phone number. Call this first whenever a caller ID is available. Returns the matching customer row (phone, name, email, address) or nothing if the caller is new.",
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "105oIsIgzRQmt_Xpm0rg8f0-Idu7dOvKLdFn0xC-PGmI"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Clients"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "phone",
+              "lookupValue": "={{ $fromAI('phone', 'Caller phone number in E.164 format, for example +13125550123', 'string') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000002",
+      "name": "lookup_client",
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        100,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Save a new customer after the caller has confirmed their name and phone number. Use E.164 for the phone. Email and address may be empty.",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "105oIsIgzRQmt_Xpm0rg8f0-Idu7dOvKLdFn0xC-PGmI"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Clients"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "phone": "={{ $fromAI('phone', 'Phone number in E.164 format', 'string') }}",
+            "name": "={{ $fromAI('name', 'Full name as confirmed with the caller', 'string') }}",
+            "email": "={{ $fromAI('email', 'Email address, lowercase, or empty', 'string') }}",
+            "address": "={{ $fromAI('address', 'Service address, or empty', 'string') }}",
+            "created_at": "={{ $now.toISO() }}",
+            "source": "phone"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "address",
+              "displayName": "address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000003",
+      "name": "create_client",
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        320,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "List calendar events between two times. Every time inside the window that is not covered by a returned event is free. Pass both times in ISO 8601 with the business timezone offset, for example 2026-11-12T07:00:00-06:00. Never read event titles to the caller.",
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "7751c15adce7a167c15f6c6fc7ffacb845e196e747271133397c411ad8fd6b14@group.calendar.google.com"
+        },
+        "returnAll": true,
+        "timeMin": "={{ $fromAI('window_start', 'Start of the window to check, ISO 8601 with timezone offset', 'string') }}",
+        "timeMax": "={{ $fromAI('window_end', 'End of the window to check, ISO 8601 with timezone offset', 'string') }}",
+        "options": {
+          "singleEvents": true,
+          "orderBy": "startTime",
+          "fields": "items(id,start,end,status)"
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000004",
+      "name": "check_availability",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        540,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Book a service visit on the calendar once the caller has confirmed the date, time, address and problem. Start and end in ISO 8601 with timezone offset; end is start plus the visit length. Returns the created event including its id.",
+        "operation": "create",
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "7751c15adce7a167c15f6c6fc7ffacb845e196e747271133397c411ad8fd6b14@group.calendar.google.com"
+        },
+        "start": "={{ $fromAI('start', 'Visit start, ISO 8601 with timezone offset', 'string') }}",
+        "end": "={{ $fromAI('end', 'Visit end, ISO 8601 with timezone offset', 'string') }}",
+        "useDefaultReminders": true,
+        "additionalFields": {
+          "summary": "={{ 'Service visit: ' + $fromAI('name', 'Customer full name', 'string') }}",
+          "description": "={{ 'Phone: ' + $fromAI('phone', 'Customer phone in E.164', 'string') + '\\nProblem: ' + $fromAI('problem', 'One-sentence description of the problem or service requested', 'string') + '\\nBooked by AI receptionist' }}",
+          "location": "={{ $fromAI('address', 'Service address', 'string') }}"
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000005",
+      "name": "book_appointment",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        760,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Find a caller's upcoming visits by their phone number. Searches event text for the phone number between the two times. Returns events with their ids, which update_appointment and cancel_appointment need.",
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "7751c15adce7a167c15f6c6fc7ffacb845e196e747271133397c411ad8fd6b14@group.calendar.google.com"
+        },
+        "returnAll": true,
+        "timeMin": "={{ $fromAI('window_start', 'Start of the search window, usually now, ISO 8601 with offset', 'string') }}",
+        "timeMax": "={{ $fromAI('window_end', 'End of the search window, usually 60 days from now, ISO 8601 with offset', 'string') }}",
+        "options": {
+          "singleEvents": true,
+          "orderBy": "startTime",
+          "query": "={{ $fromAI('phone', 'Caller phone number in E.164 format', 'string') }}",
+          "fields": "items(id,summary,start,end,location,description)"
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000006",
+      "name": "lookup_appointment",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        980,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Move an existing visit to a new start and end. Needs the event id from lookup_appointment. Check availability for the new time first.",
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "7751c15adce7a167c15f6c6fc7ffacb845e196e747271133397c411ad8fd6b14@group.calendar.google.com"
+        },
+        "eventId": "={{ $fromAI('event_id', 'Calendar event id from lookup_appointment', 'string') }}",
+        "updateFields": {
+          "start": "={{ $fromAI('start', 'New visit start, ISO 8601 with timezone offset', 'string') }}",
+          "end": "={{ $fromAI('end', 'New visit end, ISO 8601 with timezone offset', 'string') }}"
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000007",
+      "name": "update_appointment",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        1200,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Cancel a visit. Needs the event id from lookup_appointment. Only call after the caller has confirmed they want to cancel.",
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "mode": "id",
+          "value": "7751c15adce7a167c15f6c6fc7ffacb845e196e747271133397c411ad8fd6b14@group.calendar.google.com"
+        },
+        "eventId": "={{ $fromAI('event_id', 'Calendar event id from lookup_appointment', 'string') }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000008",
+      "name": "cancel_appointment",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        1420,
+        560
+      ]
+    }
+  ],
+  "connections": {
+    "lookup_client": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create_client": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check_availability": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "book_appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "lookup_appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update_appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cancel_appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "import",
+    "client": "demo"
+  }
+}
