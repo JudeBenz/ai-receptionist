@@ -50,7 +50,7 @@ ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 
 @media (max-width: 700px) { .body { grid-template-columns: 1fr } .stats { grid-template-columns: 1fr 1fr 1fr } }
 @media print {
   @page { size: letter; margin: 0.4in }
-  body { background: #fff; padding: 0; font-size: 13.5px }
+  body { background: #fff; padding: 0; font-size: 12.4px }
   .page { border: none; border-radius: 0; max-width: none }
   .band { -webkit-print-color-adjust: exact; print-color-adjust: exact }
   .offer, .price, .band .logo span { -webkit-print-color-adjust: exact; print-color-adjust: exact }
@@ -113,7 +113,7 @@ ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 
     <div>
       <div class="block">
         <h2>Who it is for</h2>
-        <p><b>HVAC, plumbing and law firms</b> in <span data-brand="city">[City]</span>: businesses where the caller is urgent and one missed customer costs more than a month of service.</p>
+        <p><b>HVAC, plumbing and law firms</b> in <span data-brand="city">Massachusetts</span>: businesses where the caller is urgent and one missed customer costs more than a month of service.</p>
       </div>
 
       <div class="block">
@@ -134,12 +134,12 @@ ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 
   </div>
 
   <div class="contact">
-    <div><b data-brand="owner">[Your name]</b> · <span data-brand="company">AfterRing</span></div>
-    <div><span data-brand="phone">(555) 010-0100</span> · <span data-brand="email">hello@afterring.example</span> · <span data-brand="website">afterring.example</span></div>
+    <div><b data-brand="owner">Jude Rogers</b> · <span data-brand="company">AfterRing</span></div>
+    <div><span data-brand="email">afterringsservices@gmail.com</span> · <span data-brand="website">judebenz.github.io/ai-receptionist</span></div>
   </div>
 </div>
 <script>
-const BRAND = { company: "AfterRing", owner: "[Your name]", city: "[City]", phone: "(555) 010-0100", demo: "(978) 347-8475", email: "hello@afterring.example", website: "afterring.example" };
+const BRAND = { company: "AfterRing", owner: "Jude Rogers", city: "Massachusetts", demo: "(978) 347-8475", email: "afterringsservices@gmail.com", website: "judebenz.github.io/ai-receptionist" };
 document.querySelectorAll("[data-brand]").forEach(el => { const v = BRAND[el.dataset.brand]; if (v) el.textContent = v; });
 </script>
 </body>

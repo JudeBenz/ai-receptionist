@@ -1,6 +1,6 @@
 # Where things stand (read this first in a new session)
 
-Last updated: 2026-11-12, by Claude Code with the owner (Jude Rogers) signed in to the browser pane.
+Last updated: 2026-11-12 (second session, mid-morning), by Claude Code with the owner (Jude Rogers).
 Repository: `C:\Users\judej\Documents\ai-receptionist` = https://github.com/JudeBenz/ai-receptionist (public, branch `main`).
 Every value below is also in `handoff/status.md` (the filled status table). Secrets are only ever in `.env` on the owner's PC, never in git.
 
@@ -20,14 +20,30 @@ It answers only missed calls, books on a Google Calendar, logs to a Google Sheet
 | Local `.env` | Filled: VAPI_API_KEY, VAPI_ASSISTANT_ID, VAPI_FAQ_FILE_ID, N8N_MCP_URL (…/mcp/receptionist-demo/sse), N8N_MCP_PROTOCOL=sse, N8N_MCP_TOKEN, VAPI_SERVER_URL (…/webhook/vapi-end-of-call-demo), TRANSFER_NUMBER (owner cell), OWNER_EMAIL. |
 | Pitch video | `video/afterring-pitch-720p.mp4` and 1080p, ~100 s, built by `video/build.mjs` (see `video/README.md`). |
 | Logo | `business/logo/` (static PNGs, animated GIF avatar, banner, SVG). |
-| Website, deck, one-pager, sales kit | In `site/`, `deck/`, `sales/`. Demo number already filled in. Site is NOT deployed yet. |
+| Website | LIVE at https://judebenz.github.io/ai-receptionist/ (GitHub Pages; pushing a change under `site/` to `main` redeploys it). No placeholders: rows with no value yet (business phone, booking link, legal name) are hidden by an empty string in the `BRAND` block. Has `privacy.html`. The demo form posts to an n8n webhook whose workflow (`n8n/site-demo-request.json`) is not imported yet; until then the form falls back to a pre-filled email link. |
+| Deck, one-pager, sales kit | In `deck/`, `sales/`. One-pager placeholders filled. Meeting pack in `sales/meeting-pack/`: `meeting-sheet.pdf` (page 1 the owner's questions, demo steps and close; pages 2 and 3 the client intake) and `one-pager.pdf`. |
+| Costs | `business/costs.md`: about $0.09 a minute measured, fixed costs, margin by volume, and what must be bought before the first client goes live. |
 
 ## Test calls (tests/test-calls.md)
 
 - Call 1 done 2026-11-11: greeting, disclosure, read-backs correct; CallLog row and owner email arrived. The customer lookup failed once (Sheets scope missing on the OAuth grant) and is fixed. The caller hung up before a slot was offered, so **booking a visit is still unproven**.
 - Calls 2 to 6 not run. Watch a call from the owner's PC with the Vapi API: `GET https://api.vapi.ai/call?limit=3` with the key from `.env` (a watcher script pattern is described in status.md).
 
-## Open inconsistencies to settle with the owner
+## Settled on 2026-11-12
+
+- Pricing: the owner keeps Starter $297 / Growth $497 / Pro $997 with the free 30-day pilot everywhere, and prices very large clients individually (thresholds in `business/costs.md`). The video script now says the same.
+- The video greeting has the AI disclosure back, matching the live line.
+- The prompt asks one question per turn; pushed to the live assistant. Not yet heard on a call.
+
+## Still open
+
+- Import and publish `n8n/site-demo-request.json` in n8n (needs the owner signed in to n8n in the pane), pick the Gmail credential, then submit the live form once and check the email arrives.
+- Text alerts are sold on Growth and shown in the video, but SMS needs 10DLC registration; only email summaries work today.
+- The site's statistics (38%, 3 in 4, 6 in 10) cite "a 2024 study of 85 small businesses, as reported by industry sources"; no primary source is on file.
+- The live deck artifact still shows the old 555 placeholder number; republish from `deck/project/slides/`.
+- No intro email for Hicks Plumbing is in the repository; draft it after the meeting.
+
+## Earlier notes on these points (kept for history)
 
 1. **Pricing.** `business/brand.json`, the site, the deck, the one-pager and the follow-up emails say Starter $297 / Growth $497 / Pro $997 a month with a free 30-day pilot. The video (changed at the owner's request in the video session) says **$225 a month plus a $425 set-up fee after the first booking**. One of them must change everywhere.
 2. **AI disclosure in the video.** The live line says "This is Kylie, an AI assistant, and this call may be recorded." The video greeting was changed to drop the AI line. Recommendation: put it back; it is a product rule and a legal safety margin.
@@ -36,10 +52,10 @@ It answers only missed calls, books on a Google Calendar, logs to a Google Sheet
 
 ## Next steps, in order
 
-1. Finish the six test calls, fix what they show, log each in `handoff/status.md`.
-2. Settle pricing and the video greeting (above), re-render the video if needed (`cd video && npm run build`).
+1. Finish the six test calls (booking is still unproven), fix what they show, log each in `handoff/status.md`. Start `node tests/watch-call.mjs`, then have the owner dial.
+2. Import the website-form workflow into n8n and test the live form.
 3. First prospect: Hicks Plumbing LLC (owner has the email address; intro email drafted in the 2026-11-12 session, not sent).
-4. Deploy `site/` (Netlify Drop or Cloudflare Pages), add a form endpoint, fill the `BRAND` block, set up Google Voice and a Calendly link, then `business/launch-checklist.md` items.
+4. Before the first paying client: the six items at the end of `business/costs.md` (Vapi Core for a second number, n8n paid plan before the trial ends 2026-11-25, Stripe links, agreement reviewed, 10DLC, own phone line and domain). Then Google Voice and a Calendly link into the `BRAND` block and `business/brand.json`.
 5. Buy afterring.co when ready; Google Workspace can wait.
 6. When a client signs: `ops/delivery-playbook.md`, `node scripts/new-client.mjs <slug>`, `node scripts/n8n-for-client.mjs <slug>`, `node vapi/setup.mjs --client <slug>`.
 

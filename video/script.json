@@ -211,7 +211,7 @@
       "lines": [
         {
           "speaker": "receptionist",
-          "text": "Northwind Heating, this is Kylie. This call may be recorded. How can I help?"
+          "text": "Northwind Heating, this is Kylie, an AI assistant. This call may be recorded. How can I help?"
         },
         {
           "speaker": "caller",
@@ -359,7 +359,7 @@
         {
           "speaker": "narrator",
           "gap": 0.4,
-          "text": "After that, it's two twenty-five a month, flat, plus a one-time four twenty-five set-up fee, charged only after your first booking."
+          "text": "After that, plans start at two ninety-seven a month, flat. Most owners choose Growth, at four ninety-seven. Set-up is included."
         }
       ],
       "events": [
@@ -372,12 +372,12 @@
       "text": {
         "headline": "30-day pilot.",
         "sub": "No fee if it hasn't booked one job by day 30.",
-        "planName": "Your plan",
-        "planPrice": "$225",
+        "planName": "Growth · most owners",
+        "planPrice": "$497",
         "planUnit": "a month, flat",
-        "planFee": "$425 set-up fee",
-        "planFeeSub": "One-time, charged only after your first booking.",
-        "planSub": "Text alerts and live transfer included. No contract past the first 30 days."
+        "planFee": "Starter from $297",
+        "planFeeSub": "Pro, for several lines or locations, from $997.",
+        "planSub": "Set-up included. Text alerts and live transfer on Growth. No contract past the first 30 days."
       }
     },
     {
@@ -400,7 +400,7 @@
         "demoLabel": "Hear it now",
         "demoNumber": "[demo_number]",
         "email": "[email]",
-        "booking": "[booking_link]",
+        "booking": "[website_display]",
         "footer": "Calls may be recorded. Inbound only. It never cold-calls."
       }
     }
