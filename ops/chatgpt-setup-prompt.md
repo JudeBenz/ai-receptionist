@@ -86,7 +86,7 @@ Have me call the Vapi number from my phone and run these six, one at a time, and
 ## Later, not today (tell me the steps, do not start them)
 
 - Massachusetts single-member LLC and EIN, then a business bank account.
-- Stripe account and three payment links (Starter $297, Growth $497, Pro $997 per month).
+- Stripe account that can keep a card on file and charge a variable amount each month (the $425 sign-up fee, then $297 plus 20 cents a minute beyond 900 minutes).
 - 10DLC registration before any SMS follow-ups.
 
 ## Values collected (fill this at the end)

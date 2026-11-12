@@ -13,10 +13,11 @@
   "booking_link": "https://judebenz.github.io/ai-receptionist/#contact",
   "verticals": ["HVAC", "plumbing", "law firms"],
   "signup_fee": 425,
-  "billing": "Monthly in arrears. The level is set each month by call minutes handled. No pilot.",
+  "billing": "Monthly in arrears: $297 including 900 call minutes, plus $0.20 per additional minute. No levels. No pilot.",
+  "base_fee": 297,
+  "included_minutes": 900,
+  "per_extra_minute": 0.20,
   "tiers": [
-    { "name": "Starter", "price": 297, "fit": "up to 900 call minutes in the month" },
-    { "name": "Growth", "price": 497, "fit": "901 to 2,250 call minutes in the month" },
-    { "name": "Pro", "price": 997, "fit": "2,251 to 4,500 call minutes in the month; $0.25 a minute beyond" }
+    { "name": "Base", "price": 297, "fit": "includes 900 call minutes in the month; $0.20 per additional minute" }
   ]
 }

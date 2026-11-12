@@ -52,7 +52,7 @@ Caller dials the client's number
 ## Day 30: review and renewal (30 minutes)
 
 19. Fill `ops/day-30-review.md` from the CallLog sheet: calls answered, after-hours calls, appointments booked, messages taken, estimated value using the owner's own average job figure.
-20. Send the first month-end invoice (minutes, calls, level applied) from the Vapi call log, and walk the owner through it. There is no pilot and no conversion step since 2026-11-12: the $425 sign-up fee is taken at signing and the monthly fee is billed in arrears by minutes.
+20. Send the first month-end invoice (minutes, calls, base fee plus additional minutes) from the Vapi call log, and walk the owner through it. There is no pilot and no conversion step since 2026-11-12: the $425 sign-up fee is taken at signing and the monthly fee is billed in arrears by minutes.
 
 ## Things that go wrong, and the fix
 
@@ -68,4 +68,4 @@ Caller dials the client's number
 
 ## What to charge for and what to include
 
-Set-up is covered by the one-time $425 sign-up fee. The monthly fee is set by minutes handled (Starter to 900, Growth to 2,250, Pro to 4,500, then 25 cents a minute) and billed at month end. Changes to hours, services and FAQ are included within two business days. A second line, a second location, or a custom integration is priced separately. Say this in the welcome email so it is never a surprise.
+Set-up is covered by the one-time $425 sign-up fee. The monthly fee is $297 including 900 minutes, plus 20 cents for each additional minute, billed at month end to the payment method on file. Send the usage alerts the agreement promises: at 720 and 900 minutes, then each time the month's fee passes $500, $750, $1,000 and every further $250. Changes to hours, services and FAQ are included within two business days. A second line, a second location, or a custom integration is priced separately. Say this in the welcome email so it is never a surprise.

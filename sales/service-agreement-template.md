@@ -25,8 +25,8 @@ A one-time sign-up fee of $[425] is due at signing and covers configuration, tes
 
 ## 4. Fees
 
-- Monthly fee, billed in arrears at the end of each calendar month and set by the call minutes the Service handled that month: up to 900 minutes $[297]; 901 to 2,250 $[497]; 2,251 to 4,500 $[997]; above 4,500, $[997] plus $[0.25] per additional minute. Payment due within [7] days of invoice.
-- Every feature is included at every level. Each invoice states the minutes, the number of calls and the level applied. Changes to Schedule A are made within [2] business days of request.
+- Monthly fee, billed in arrears at the end of each calendar month: a base fee of $[297], which includes [900] call minutes handled in the month, plus $[0.20] for each additional minute. Payment due within [7] days of invoice, charged to the payment method the client keeps on file.
+- Every feature is included. Each invoice states the minutes, the number of calls and how the fee was calculated. Changes to Schedule A are made within [2] business days of request.
 - Additional lines or locations are $[__] per month each.
 - Prices can change with [30] days' written notice.
 

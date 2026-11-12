@@ -31,7 +31,7 @@ Go-live: [date]. Review: [date].
 
 ## The decision
 
-- First invoice: [minutes] minutes, [calls] calls, level [Starter / Growth / Pro], $[__]. Payment link: [Stripe link].
+- First invoice: [minutes] minutes, [calls] calls, $297 plus [extra minutes] × $0.20 = $[__]. Payment link: [Stripe link].
 - If the owner wants to stop: 14 days' notice, forwarding comes off, final invoice for minutes used. "What would have made this work for you?"
 
 ## Ask for the referral

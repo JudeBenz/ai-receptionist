@@ -80,7 +80,7 @@
       { "name": "Pro", "monthly": 997 }
     ],
     "signup_fee": 425,
-    "billing": "monthly in arrears; the level is set each month by call minutes handled: up to 900 Starter, 901 to 2250 Growth, 2251 to 4500 Pro, then $0.25 per additional minute; every feature at every level",
+    "billing": "monthly in arrears to a payment method on file: $297 base fee including 900 call minutes, plus $0.20 per additional minute; no levels; every feature included",
     "pilot": "none (the free 30-day pilot was dropped on 2026-11-12)"
   },
   "test_calls": [

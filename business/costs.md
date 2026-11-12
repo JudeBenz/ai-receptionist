@@ -43,7 +43,7 @@ Margins are before the fixed costs above and before your own time.
 
 ## When to quote custom
 
-Owner's decision, later on 2026-11-12, replacing the flat plans: a one-time $425 sign-up fee, no pilot, and a monthly fee billed in arrears and set each month by the call minutes handled (up to 900 Starter $297, 901 to 2,250 Growth $497, 2,251 to 4,500 Pro $997, then $0.25 a minute). Every feature at every level. The bullets below were written for the flat plans and are kept for reference; under usage billing the level follows the minutes automatically, so the margin table above already shows what each volume earns.
+Owner's decisions on 2026-11-12, in order: first a $425 sign-up fee, no pilot, and three usage levels billed in arrears; then, the same day, the levels were replaced by smooth pricing: **$297 a month including 900 call minutes, plus $0.20 for each additional minute**, billed at month end to a payment method the client keeps on file. At a cost of about $0.10 a minute the margin is at least $0.10 on every additional minute, and $207 or more on the base fee. The owner accepts carrying a month's usage cost as long as payment is secured, so the agreement requires a payment method on file before go-live. The bullets below and the margin table above were written for the earlier plans and are kept for reference.
 
 - Up to 25 missed calls a day: any plan.
 - 25 to 50 a day: Growth or Pro, not Starter.

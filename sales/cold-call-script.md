@@ -92,7 +92,7 @@ If the first, ask for a referral. If the second: "Understood. Mine only picks up
 > Agreed, which is why it says it's an AI up front and hands over the second someone asks for a person. The alternative tonight isn't a human, it's voicemail, and three out of four callers don't leave one.
 
 **"How much is it?"**
-> There's a one-time four twenty-five to set it up, then from about three hundred a month, billed at the end of the month by how many minutes it actually took for you. But I'd rather you heard it first, because the price only makes sense after you've called it. Thursday or Friday?
+> There's a one-time four twenty-five to set it up, then about three hundred a month, which covers around ten calls a day, and twenty cents a minute past that, billed at the end of the month. But I'd rather you heard it first, because the price only makes sense after you've called it. Thursday or Friday?
 
 **"Send me some information."**
 > Happy to. What's the best email? ... I'll send a one-page summary now. What I'd suggest is you call the demo number on it when you get a minute, and I'll follow up Friday to see what you thought. Fair?
