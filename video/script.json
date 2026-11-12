@@ -359,7 +359,7 @@
         {
           "speaker": "narrator",
           "gap": 0.4,
-          "text": "After that, it's from two ninety-seven a month, billed at the end of the month by the minutes it actually handled."
+          "text": "After that, it's two ninety-seven a month, which covers about ten calls a day. Busier months add twenty cents a minute."
         }
       ],
       "events": [
@@ -371,13 +371,13 @@
       ],
       "text": {
         "headline": "Pay by use.",
-        "sub": "One bill at the end of each month, set by the minutes it handled.",
-        "planName": "Monthly, by use",
+        "sub": "One bill at the end of each month. No levels, no jumps.",
+        "planName": "Every month",
         "planPrice": "$297",
-        "planUnit": "a month, up to 900 minutes",
+        "planUnit": "a month, 900 minutes included",
         "planFee": "$425 sign-up fee",
         "planFeeSub": "One time. Covers the build and the testing.",
-        "planSub": "$497 up to 2,250 minutes. $997 up to 4,500. Every feature at every level. Month to month."
+        "planSub": "Beyond 900 minutes, 20 cents a minute. Every feature included. Month to month."
       }
     },
     {
