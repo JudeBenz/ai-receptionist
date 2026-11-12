@@ -18,7 +18,7 @@ Done by: Claude Code (browser pane) with the owner signed in
 | Vapi number | +1 (978) 347-8475, label "AfterRing demo", id aac99670-b602-4e70-8bf0-fc93f98dfda7, inbound only (new accounts get 1 free number) | yes |
 | Vapi assistant ID | 1d68bce8-f3a0-420f-9d88-4cc0e9be6f35 ("Northwind Heating and Air receptionist", voice Clara v2, FAQ file 96f9bd69-fa84-430f-a3dc-f02aa6bd11f9); attached to +1 (978) 347-8475 with fallback to the owner cell, number status active | yes |
 | Vapi pricing seen | not recorded yet; free number, 1 per new account | partly |
-| Test calls passed (of 6), notes on failures | | no |
+| Test calls passed (of 6), notes on failures | Call 1 (2026-11-11 19:50 ET, 111 s): greeting, AI disclosure, name/number/address read-back all correct; lookup_client returned "resource not found" because the Sheets consent had been granted without the Sheets scope; caller hung up before a slot was offered. Fix: reconnected the Sheets credential with the spreadsheets scope; retry of the logger execution then appended the CallLog row. Calls 2 to 6 not yet run | partly |
 | Website live URL | | no |
 | Form endpoint URL | | no |
 | Google Business Profile URL | | no |
