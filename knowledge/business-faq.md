@@ -6,12 +6,12 @@ This file is what the receptionist is allowed to quote. If a fact is not in here
 
 - Open Monday to Friday 7:00 am to 6:00 pm, Saturday 8:00 am to 12:00 noon, closed Sunday.
 - Emergency service outside those hours is available for existing customers at the emergency rate below.
-- Office address: [street address], Chicago, IL.
+- Office address: [street address], Haverhill, MA.
 - Website: [website].
 
 ## Service area
 
-Chicago and suburbs within about 30 miles, including Evanston, Oak Park, Naperville, Schaumburg and Joliet. For addresses outside that area the receptionist takes a message and the office calls back.
+The Merrimack Valley and North Shore within about 30 miles of Haverhill, including Lawrence, Andover, Methuen, Newburyport, Lowell and Salem. For addresses outside that area the receptionist takes a message and the office calls back.
 
 ## Services
 
