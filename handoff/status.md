@@ -37,7 +37,10 @@ Test call log:
 - **Call 2, PASS with one miss, 2026-11-12 09:34 ET, 51 s, $0.11** (call id 01a1d02e-2944-7000-9e1c-19e466993327). lookup_appointment found the 9:30 visit by phone; stated the existing time; confirmed the new time; check_availability; update_appointment; confirmed 10:30. Verified: the calendar event now reads 10:30 to 11:30. It asked for nothing it already had.
   - Miss: it skipped lookup_client, so it never greeted the caller by first name. Prompt step 2 now says to look the caller up on every call before any other tool; pushed with `--update`, not yet re-heard.
   - Note: the past-time fix was not exercised, because the caller named the new time.
-- Calls 3 to 6: not yet run.
+- **Call 3, PASS on the rule, two defects, 2026-11-12 09:36 ET, 107 s, $0.20** (call id 01a1d030-5519-7114-ace2-fdee55a58472). Stopped when interrupted; furnace price came from the FAQ with "the technician will confirm on site"; duct cleaning: said it is not offered and offered a message; no invented number.
+  - Defect 1, returning callers are never recognised: lookup_client returned nothing although call 1 had saved this number, and create_client added a duplicate row. Cause: Google Sheets drops the leading + when n8n appends the phone (cells read 19788723784), so a lookup for +19788723784 misses. The "plain text" column format did not prevent it. Workaround live now: the prompt tells the assistant to pass digits without the plus to lookup_client and create_client. Not yet re-heard. Proper fix when n8n is signed in: set the append to RAW cell format in the MCP workflow. The Clients tab has two identical test rows for the owner's number.
+  - Defect 2, the price range was spoken as "between 3575 hundred dollars". Prompt now says to speak every price in words as "between X and Y dollars". Not yet re-heard.
+- Calls 4 to 6: not yet run.
 
 Running costs (measured 2026-11-12 from call 1's Vapi cost breakdown): about $0.09 a minute all in; details and the before-first-client list are in `business/costs.md`.
 
