@@ -16,7 +16,7 @@ Great to have [Business name] on board. Here is how the next week goes, and the 
 **The three things I need**
 
 - The attached questionnaire filled in, or ready to answer on the call.
-- The signed agreement (attached). The first 30 days are the pilot: if it hasn't booked you a job by day 30, you owe nothing.
+- The signed agreement (attached). The one-time $425 sign-up fee starts the build; after go-live you get one bill at the end of each month, set by that month's minutes.
 - Your calendar: I'll create a "Service visits" calendar and share it to [email]. Add it to your phone and bookings appear there.
 
 **What's included**

@@ -79,7 +79,9 @@
       { "name": "Growth", "monthly": 497, "default": true },
       { "name": "Pro", "monthly": 997 }
     ],
-    "pilot": "30 days; no fee if it has not booked one job by day 30"
+    "signup_fee": 425,
+    "billing": "monthly in arrears; the level is set each month by call minutes handled: up to 900 Starter, 901 to 2250 Growth, 2251 to 4500 Pro, then $0.25 per additional minute; every feature at every level",
+    "pilot": "none (the free 30-day pilot was dropped on 2026-11-12)"
   },
   "test_calls": [
     "New caller books a visit: asks name and number, reads them back, offers two times inside hours, confirms, books",

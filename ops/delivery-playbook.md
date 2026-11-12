@@ -40,7 +40,7 @@ Caller dials the client's number
 ## Day 7: go live (30 minutes with the client on the phone)
 
 13. Follow `ops/go-live-checklist.md`: set conditional forwarding on the client's phone, test from a third phone, confirm caller ID passes through, confirm the summary lands.
-14. Start the pilot clock. Put the go-live date in `business.json`.
+14. Put the go-live date in `business.json`. Monthly billing starts from this date.
 
 ## Days 8 to 30: run it
 
@@ -52,7 +52,7 @@ Caller dials the client's number
 ## Day 30: review and renewal (30 minutes)
 
 19. Fill `ops/day-30-review.md` from the CallLog sheet: calls answered, after-hours calls, appointments booked, messages taken, estimated value using the owner's own average job figure.
-20. If it booked at least one job, the pilot converts: send the Stripe payment link for the plan, confirm the date billing starts, keep going. If it did not, end it cleanly, remove forwarding, and ask what would have made it work.
+20. Send the first month-end invoice (minutes, calls, level applied) from the Vapi call log, and walk the owner through it. There is no pilot and no conversion step since 2026-11-12: the $425 sign-up fee is taken at signing and the monthly fee is billed in arrears by minutes.
 
 ## Things that go wrong, and the fix
 
@@ -68,4 +68,4 @@ Caller dials the client's number
 
 ## What to charge for and what to include
 
-Set-up is included in the plan. Changes to hours, services and FAQ are included within two business days. A second line, a second location, or a custom integration is priced separately. Say this in the welcome email so it is never a surprise.
+Set-up is covered by the one-time $425 sign-up fee. The monthly fee is set by minutes handled (Starter to 900, Growth to 2,250, Pro to 4,500, then 25 cents a minute) and billed at month end. Changes to hours, services and FAQ are included within two business days. A second line, a second location, or a custom integration is priced separately. Say this in the welcome email so it is never a surprise.

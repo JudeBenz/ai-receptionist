@@ -86,19 +86,19 @@ If the first, ask for a referral. If the second: "Understood. Mine only picks up
 > Good, keep them. This isn't for the calls they answer, it's for the ones at lunch, after six, and on Saturday when the furnace goes out. What happens to those right now?
 
 **"We use an answering service."**
-> How's it working out? ... What do they charge when you go over your minutes? (Most run two to five dollars a minute over the bundle.) This is a flat monthly number, and it actually books the job on your calendar instead of taking a message.
+> How's it working out? ... What do they charge when you go over your minutes? (Most run two to five dollars a minute over the bundle.) This is billed by what you actually use, with no overage shock, and it actually books the job on your calendar instead of taking a message.
 
 **"Customers hate talking to robots."**
 > Agreed, which is why it says it's an AI up front and hands over the second someone asks for a person. The alternative tonight isn't a human, it's voicemail, and three out of four callers don't leave one.
 
 **"How much is it?"**
-> Flat monthly plans from about three hundred, and a 30-day pilot where you owe nothing if it hasn't booked you a job. But I'd rather you heard it first, because the price only makes sense after you've called it. Thursday or Friday?
+> There's a one-time four twenty-five to set it up, then from about three hundred a month, billed at the end of the month by how many minutes it actually took for you. But I'd rather you heard it first, because the price only makes sense after you've called it. Thursday or Friday?
 
 **"Send me some information."**
 > Happy to. What's the best email? ... I'll send a one-page summary now. What I'd suggest is you call the demo number on it when you get a minute, and I'll follow up Friday to see what you thought. Fair?
 
 **"It's not our busy season."**
-> That's actually the best time to set it up, before the phones go mad. And the pilot is month to month, so you can run it in the slow month and judge it in the busy one.
+> That's actually the best time to set it up, before the phones go mad. And it's month to month and billed by use, so the slow month costs you the least and you can judge it in the busy one.
 
 **"Is this a robocall?"**
 > No, it's just me, [Name], dialing by hand from [City]. Bad timing?

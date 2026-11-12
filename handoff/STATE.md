@@ -38,7 +38,7 @@ It answers only missed calls, books on a Google Calendar, logs to a Google Sheet
 ## Owner decisions on 2026-11-12, later in the day
 
 - AI disclosure rule changed (see CLAUDE.md): the recording notice and "never claims to be human, confirms it is an AI when asked" are fixed; the AI introduction in the greeting is now the default, and a client may choose a name-only greeting in their signed agreement. The site, privacy page and one-pager were reworded to match. The demo line and the video still use the AI introduction.
-- A first client agreement was drafted for a California plumbing prospect (kept in the git-ignored clients/ folder). Its terms differ from the published offer: $425 sign-up fee, no 30-day pilot, monthly fee billed in arrears and set each month by minutes handled (up to 900 Starter $297, to 2,250 Growth $497, to 4,500 Pro $997, then $0.25 a minute). The website, deck, one-pager, emails and video still advertise the free pilot, set-up included and flat plans; the owner has not yet said whether to change them.
+- A first client agreement was drafted for a California plumbing prospect (kept in the git-ignored clients/ folder). Its terms: $425 sign-up fee, no 30-day pilot, monthly fee billed in arrears and set each month by minutes handled (up to 900 Starter $297, to 2,250 Growth $497, to 4,500 Pro $997, then $0.25 a minute), every feature at every level. The owner then made this the published offer everywhere: site, one-pager, deck slides, follow-up emails, cold-call script, ops docs, agreement template, brand.json, facts.json, video and the meeting and quote sheets were all switched the same day. Text alerts are no longer advertised.
 - Clients may choose all calls, missed calls and after hours, or after hours only.
 
 ## Still open

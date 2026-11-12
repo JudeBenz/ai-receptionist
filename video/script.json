@@ -354,12 +354,12 @@
       "lines": [
         {
           "speaker": "narrator",
-          "text": "Try it for thirty days. If it hasn't booked you one job by day thirty, you owe nothing."
+          "text": "Four twenty-five gets it built and tested on your own number. Nothing goes live until you've called it yourself."
         },
         {
           "speaker": "narrator",
           "gap": 0.4,
-          "text": "After that, plans start at two ninety-seven a month, flat. Most owners choose Growth, at four ninety-seven. Set-up is included."
+          "text": "After that, it's from two ninety-seven a month, billed at the end of the month by the minutes it actually handled."
         }
       ],
       "events": [
@@ -370,14 +370,14 @@
         }
       ],
       "text": {
-        "headline": "30-day pilot.",
-        "sub": "No fee if it hasn't booked one job by day 30.",
-        "planName": "Growth · most owners",
-        "planPrice": "$497",
-        "planUnit": "a month, flat",
-        "planFee": "Starter from $297",
-        "planFeeSub": "Pro, for several lines or locations, from $997.",
-        "planSub": "Set-up included. Text alerts and live transfer on Growth. No contract past the first 30 days."
+        "headline": "Pay for what it takes.",
+        "sub": "One bill at the end of each month, set by the minutes it handled.",
+        "planName": "Monthly, by use",
+        "planPrice": "$297",
+        "planUnit": "a month, up to 900 minutes",
+        "planFee": "$425 sign-up fee",
+        "planFeeSub": "One time. Covers the build and the testing.",
+        "planSub": "$497 up to 2,250 minutes. $997 up to 4,500. Every feature at every level. Month to month."
       }
     },
     {

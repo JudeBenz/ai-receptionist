@@ -8,7 +8,7 @@ What it covers, in order: a shop phone ringing out and the caller moving on; the
 what AfterRing does (every call, or only the ones the team misses, typically after about 15 seconds unanswered or after hours); a simulated
 booking call with the AI disclosure and the recording notice; the text alert, email summary and calendar event
 the owner receives; three ground rules (it replaces only who the owner wants it to, never cold-calls, the owner keeps their number);
-the 30-day pilot, then the three flat plans (Starter $297, Growth $497, Pro $997 a month, set-up included); the end card with the demo number, email and
+the offer ($425 one-time sign-up fee, then from $297 a month billed at month end by minutes handled: $497 to 2,250 minutes, $997 to 4,500); the end card with the demo number, email and
 booking link.
 
 ## How it is built

@@ -23,7 +23,7 @@ Here's how the fifteen minutes go:
 
 1. You call [demo number] from your own phone and pretend to be a customer. Ask for a price, change your mind, ask if it's a robot. Try to break it.
 2. I show you what lands on the calendar and the summary that would go to your phone.
-3. If it's useful, we talk about a 30-day pilot on your existing number. If not, no hard feelings.
+3. If it's useful, we talk about setting it up on your existing number. If not, no hard feelings.
 
 One thing you said stuck with me: about [X] calls a day going to voicemail at roughly [$Y] a job. That's the number I'd like to show you a dent in.
 
@@ -41,7 +41,7 @@ As promised, a one-page summary is attached. The short version:
 - It answers only the calls your team doesn't, after fifteen seconds or after hours.
 - It books the job on your calendar and texts you a summary of every call.
 - It says it's an AI, and hands the caller to you the moment they ask for a person.
-- Flat monthly plans from $297, with a 30-day pilot where you owe nothing if it hasn't booked you a job.
+- A one-time $425 sign-up fee, then from $297 a month, billed at the end of the month by the minutes it actually handled.
 
 The fastest way to judge it is to call it: [demo number]. Takes two minutes.
 
@@ -68,16 +68,16 @@ Reply here, or call [phone]. If you'd rather hear it than read about it, call [d
 
 ## Email 4: after the demo
 
-Subject: Next step: 30-day pilot on your number
+Subject: Next step: setting it up on your number
 
 Hi [First name],
 
-Good to talk today. You called it, it booked [the test visit], and you saw the summary land. Here's the pilot, in plain terms:
+Good to talk today. You called it, it booked [the test visit], and you saw the summary land. Here's the deal, in plain terms:
 
 - Week 1: I set it up with your hours, services, prices and the questions callers always ask.
 - Week 2: six test calls from me, then you and your team try to break it.
 - Weeks 3 and 4: it answers the calls you miss on your existing number. You get every summary.
-- Day 30: if it hasn't booked you at least one job, you owe nothing. If it has, it's [$497] a month from then, month to month.
+- $425 one time to start, which covers the build and the testing. Then one bill at the end of each month, set by that month's minutes: $297 up to 900 minutes, $497 up to 2,250, $997 up to 4,500. Month to month.
 
 The agreement is attached, one page. Reply "go" and I'll send the kick-off questions, or call me with anything at [phone].
 

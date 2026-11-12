@@ -19,20 +19,20 @@ The provider sets up and runs an AI telephone receptionist ("the Service") on th
 - Tells callers, where the law requires it, that calls may be recorded; the Service states this at the start of every call.
 - Reviews the call summaries and tells the provider about any wrong answer within [2] business days.
 
-## 3. Pilot
+## 3. Sign-up fee and go-live
 
-The first [30] days are a pilot. If by day [30] the Service has not booked at least one appointment for the client, the client may end this agreement with no fee owed. Otherwise the subscription in section 4 begins on day [31].
+A one-time sign-up fee of $[425] is due at signing and covers configuration, testing and go-live. It is not refundable once set-up has begun. Monthly fees begin on the day the Service first answers live calls.
 
 ## 4. Fees
 
-- Plan: [Growth] at $[497] per month, billed monthly in advance by [card / bank transfer], first payment due [day 31].
-- The plan includes [unlimited inbound minutes under fair use / up to N minutes], one phone line, and changes to Schedule A within [2] business days of request.
-- Set-up is included. Additional lines or locations are $[__] per month each.
+- Monthly fee, billed in arrears at the end of each calendar month and set by the call minutes the Service handled that month: up to 900 minutes $[297]; 901 to 2,250 $[497]; 2,251 to 4,500 $[997]; above 4,500, $[997] plus $[0.25] per additional minute. Payment due within [7] days of invoice.
+- Every feature is included at every level. Each invoice states the minutes, the number of calls and the level applied. Changes to Schedule A are made within [2] business days of request.
+- Additional lines or locations are $[__] per month each.
 - Prices can change with [30] days' written notice.
 
 ## 5. Term and cancellation
 
-Month to month after the pilot. Either party may cancel with [14] days' written notice. On cancellation the provider removes the Service from the client's number within [2] business days and deletes call recordings and transcripts within [30] days unless the client asks for a copy first.
+Month to month from go-live. Either party may cancel with [14] days' written notice. On cancellation the provider removes the Service from the client's number within [2] business days and deletes call recordings and transcripts within [30] days unless the client asks for a copy first.
 
 ## 6. What the Service is and is not
 

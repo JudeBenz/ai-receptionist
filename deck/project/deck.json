@@ -7,7 +7,7 @@
   "sections": {
     "s1": {"description": "The calls a local business loses and what covering them costs today.", "start": "cover"},
     "s2": {"description": "Hear the receptionist, then see what the owner receives after every call.", "start": "demo"},
-    "s3": {"description": "Who it is for, what it costs, and how the pilot starts.", "start": "who"}
+    "s3": {"description": "Who it is for, what it costs, and how it starts.", "start": "who"}
   },
   "faces": {
     "space-grotesk": {"family": "Space Grotesk", "href": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@400;600&display=swap"},

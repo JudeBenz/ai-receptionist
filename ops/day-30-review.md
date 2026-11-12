@@ -1,4 +1,4 @@
-# Day-30 pilot review
+# Day-30 review
 
 Book 30 minutes with the owner. Fill this from the CallLog sheet and the Vapi call log before the meeting, and send it as a one-page PDF afterwards.
 
@@ -25,14 +25,14 @@ Go-live: [date]. Review: [date].
 2.
 3.
 
-**What we fixed during the pilot**: [from notes.md change log].
+**What we fixed in the first month**: [from notes.md change log].
 
 **What I'd change next**: [e.g. add text alerts, extend after-hours rule, second line].
 
 ## The decision
 
-- Booked at least one job: the pilot converts. Billing starts [date] on the [plan] plan at $[__]/month, month to month. Payment link: [Stripe link].
-- Did not: forwarding comes off today, no fee. "What would have made this work for you?"
+- First invoice: [minutes] minutes, [calls] calls, level [Starter / Growth / Pro], $[__]. Payment link: [Stripe link].
+- If the owner wants to stop: 14 days' notice, forwarding comes off, final invoice for minutes used. "What would have made this work for you?"
 
 ## Ask for the referral
 

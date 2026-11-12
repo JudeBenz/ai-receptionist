@@ -43,7 +43,7 @@ Margins are before the fixed costs above and before your own time.
 
 ## When to quote custom
 
-Owner's decision (2026-11-12): the three flat plans stay as published, and very large clients are priced individually.
+Owner's decision, later on 2026-11-12, replacing the flat plans: a one-time $425 sign-up fee, no pilot, and a monthly fee billed in arrears and set each month by the call minutes handled (up to 900 Starter $297, 901 to 2,250 Growth $497, 2,251 to 4,500 Pro $997, then $0.25 a minute). Every feature at every level. The bullets below were written for the flat plans and are kept for reference; under usage billing the level follows the minutes automatically, so the margin table above already shows what each volume earns.
 
 - Up to 25 missed calls a day: any plan.
 - 25 to 50 a day: Growth or Pro, not Starter.
