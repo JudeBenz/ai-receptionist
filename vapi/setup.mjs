@@ -144,7 +144,7 @@ function buildPayload({ fileId }) {
       messages: [{ role: 'system', content: systemPrompt }],
       tools,
     },
-    voice: { provider: 'vapi', voiceId: config.voice_id || 'Paige' },
+    voice: { provider: 'vapi', voiceId: config.voice_id || 'Clara', version: 2 },
     serverMessages: ['end-of-call-report'],
     analysisPlan: {
       summaryPlan: {
