@@ -16,8 +16,8 @@ Done by: Claude Code (browser pane) with the owner signed in
 | MCP production URL (ends in /sse?) | https://afterring.app.n8n.cloud/mcp/receptionist-demo/sse (yes, sse) | yes |
 | Webhook production URL | https://afterring.app.n8n.cloud/webhook/vapi-end-of-call-demo | yes |
 | Vapi number | +1 (978) 347-8475, label "AfterRing demo", id aac99670-b602-4e70-8bf0-fc93f98dfda7, inbound only (new accounts get 1 free number) | yes |
-| Vapi assistant ID | | no |
-| Vapi pricing seen | | no |
+| Vapi assistant ID | 1d68bce8-f3a0-420f-9d88-4cc0e9be6f35 ("Northwind Heating and Air receptionist", voice Clara v2, FAQ file 96f9bd69-fa84-430f-a3dc-f02aa6bd11f9); attached to +1 (978) 347-8475 with fallback to the owner cell, number status active | yes |
+| Vapi pricing seen | not recorded yet; free number, 1 per new account | partly |
 | Test calls passed (of 6), notes on failures | | no |
 | Website live URL | | no |
 | Form endpoint URL | | no |
@@ -26,6 +26,7 @@ Done by: Claude Code (browser pane) with the owner signed in
 
 Secrets stored (name and file only, never the value):
 
+- VAPI_API_KEY in .env (copied clipboard-to-file by script, never displayed)
 - N8N_MCP_TOKEN in .env (generated 2026-11-11, pasted into the n8n Bearer Auth credential by the owner)
 
 Problems hit and how they were solved:
