@@ -378,7 +378,7 @@ function Scene-List($g, $sc, [double]$t) {
     $dim = if ($i -eq $cur) { 1.0 } else { 0.55 }
     $y = 320 + $i * 200 + 24 * (1 - $p); $al = A ($p * $dim)
     FillRound $g $PANEL $al 120 $y 1680 160 24
-    Circle $g $ORANGE $al 200 ($y + 80) 40; Cross $g 200 ($y + 80) 50 $NAVY $al 8
+    Circle $g $ORANGE $al 200 ($y + 80) 40; Check $g 200 ($y + 80) 52 $NAVY $al 8
     Txt $g $items[$i].title 'display' 50 $CREAM 280 ($y + 26) 1480 'left' $al | Out-Null
     Txt $g $items[$i].sub 'body' 32 $MUTED 280 ($y + 96) 1480 'left' $al | Out-Null
   }

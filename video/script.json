@@ -315,7 +315,7 @@
       "lines": [
         {
           "speaker": "narrator",
-          "text": "It never replaces your staff."
+          "text": "It replaces only who you want it to."
         },
         {
           "speaker": "narrator",
@@ -329,11 +329,11 @@
         }
       ],
       "text": {
-        "headline": "What it is not.",
+        "headline": "Three things to know.",
         "items": [
           {
-            "title": "It never replaces your staff.",
-            "sub": "Let your people answer first and it covers the gap, or let it take every call."
+            "title": "It replaces only who you want it to.",
+            "sub": "Cover the gaps when your people are busy, or hand it the whole front desk. Your call."
           },
           {
             "title": "It never cold-calls.",
