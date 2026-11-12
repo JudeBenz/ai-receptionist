@@ -394,13 +394,17 @@ function Scene-Offer($g, $sc, [double]$t) {
   $g.FillRectangle((Brush $ORANGE 255), [single]120, [single]640, [single](220 * (Prog $t 0.6 0.5)), [single]10)
   $p = Prog $t (Ev $sc 'price') 0.6
   if ($p -gt 0) {
-    $x = 1100 + 70 * (1 - $p); $y = 250; $w = 700; $h = 580; $al = A $p
+    $x = 1100 + 70 * (1 - $p); $y = 200; $w = 700; $h = 680; $al = A $p
     FillRound $g $CREAM $al $x $y $w $h 28
     $g.FillRectangle((Brush $ORANGE $al), [single]$x, [single]($y + 28), [single]14, [single]($h - 56))
-    Txt $g $tx.planName.ToUpper() 'semi' 30 $ORANGE ($x + 60) ($y + 60) 0 'left' $al | Out-Null
-    Txt $g $tx.planPrice 'display' 190 $NAVY ($x + 52) ($y + 110) 0 'left' $al | Out-Null
-    Txt $g $tx.planUnit 'body' 44 $INK2 ($x + 60) ($y + 345) 0 'left' $al | Out-Null
-    Txt $g $tx.planSub 'body' 30 $INK2 ($x + 60) ($y + 440) ($w - 120) 'left' $al | Out-Null
+    Txt $g $tx.planName.ToUpper() 'semi' 30 $ORANGE ($x + 60) ($y + 50) 0 'left' $al | Out-Null
+    Txt $g $tx.planPrice 'display' 170 $NAVY ($x + 52) ($y + 90) 0 'left' $al | Out-Null
+    Txt $g $tx.planUnit 'body' 42 $INK2 ($x + 60) ($y + 300) 0 'left' $al | Out-Null
+    $g.DrawLine((Pen 'D9DDE3' 3 $al), [single]($x + 60), [single]($y + 380), [single]($x + $w - 60), [single]($y + 380))
+    $pf = Prog $t ((Ev $sc 'price') + 0.5) 0.5; $alf = A ($pf * $p)
+    Txt $g $tx.planFee 'display' 48 $NAVY ($x + 60) ($y + 405) 0 'left' $alf | Out-Null
+    Txt $g $tx.planFeeSub 'body' 30 $INK2 ($x + 60) ($y + 470) ($w - 120) 'left' $alf | Out-Null
+    Txt $g $tx.planSub 'body' 27 $INK2 ($x + 60) ($y + 560) ($w - 120) 'left' $al | Out-Null
   }
   Watermark $g
 }

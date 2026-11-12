@@ -151,12 +151,12 @@
       "lines": [
         {
           "speaker": "narrator",
-          "text": "AfterRing is an AI receptionist that answers only the calls you miss."
+          "text": "AfterRing is an AI receptionist for your business line. It can take every call, or only the ones your team misses."
         },
         {
           "speaker": "narrator",
           "gap": 0.3,
-          "text": "After fifteen seconds unanswered, or after hours, it picks up in your company's name."
+          "text": "Set it to step in after fifteen seconds unanswered, or after hours. It answers in your company's name."
         }
       ],
       "events": [
@@ -168,33 +168,33 @@
         {
           "id": "step2",
           "after": "line:0",
-          "offset": -1.4
+          "offset": -2.6
         },
         {
           "id": "step3",
-          "after": "line:1",
-          "offset": -3.6
+          "after": "linestart:1",
+          "offset": 0.3
         },
         {
           "id": "step4",
           "after": "line:1",
-          "offset": -1.6
+          "offset": -2
         }
       ],
       "text": {
-        "headline": "It answers only the calls you miss.",
+        "headline": "Every call, or only the ones you miss.",
         "steps": [
           {
             "title": "Call comes in",
             "sub": "Your desk or cell rings as normal."
           },
           {
-            "title": "Your team answers",
-            "sub": "Those calls never touch it."
+            "title": "You choose",
+            "sub": "It takes every call, or only the ones nobody picks up."
           },
           {
             "title": "15 seconds, or after hours",
-            "sub": "Nobody picked up."
+            "sub": "The usual setting: it steps in when nobody has answered."
           },
           {
             "title": "AfterRing picks up",
@@ -333,7 +333,7 @@
         "items": [
           {
             "title": "It never replaces your staff.",
-            "sub": "If a person can answer, they should. It runs the gap."
+            "sub": "Let your people answer first and it covers the gap, or let it take every call."
           },
           {
             "title": "It never cold-calls.",
@@ -359,22 +359,24 @@
         {
           "speaker": "narrator",
           "gap": 0.4,
-          "text": "After that, the Growth plan is four ninety-seven a month. Flat."
+          "text": "After that, it's two twenty-five a month, flat, plus a one-time four twenty-five set-up fee, charged only after your first booking."
         }
       ],
       "events": [
         {
           "id": "price",
-          "after": "line:1",
-          "offset": -3
+          "after": "linestart:1",
+          "offset": 0.1
         }
       ],
       "text": {
         "headline": "30-day pilot.",
         "sub": "No fee if it hasn't booked one job by day 30.",
-        "planName": "Growth plan",
-        "planPrice": "$497",
+        "planName": "Your plan",
+        "planPrice": "$225",
         "planUnit": "a month, flat",
+        "planFee": "$425 set-up fee",
+        "planFeeSub": "One-time, charged only after your first booking.",
         "planSub": "Text alerts and live transfer included. No contract past the first 30 days."
       }
     },
