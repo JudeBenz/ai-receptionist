@@ -4,8 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
-<title>AfterRing AI Receptionists</title>
-<meta name="description" content="An AI phone receptionist for HVAC, plumbing and law firms. It answers only the calls your team misses, books the job, and texts you the summary.">
+<title>AfterRing · AI phone receptionist for Massachusetts trades and law firms</title>
+<meta name="description" content="An AI phone receptionist for HVAC, plumbing and law firms in Massachusetts. It answers only the calls your team misses, books the job, and sends you the summary.">
+<meta name="theme-color" content="#14213D">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AfterRing · The receptionist that answers when yours can't.">
+<meta property="og:description" content="An AI phone receptionist for HVAC, plumbing and law firms. It answers only the calls your team misses, books the job, and sends you the summary. Call the demo line: (978) 347-8475.">
+<meta property="og:image" content="og.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
 <style>
 /* Layout: a left-aligned column, 1080px wide, with a live call transcript as the hero's second column and a flat orange call strip as the one bold element. */
@@ -114,6 +122,10 @@ form { display: grid; gap: 14px }
 label { display: grid; gap: 6px; font-weight: 600; font-size: 0.95rem }
 input, select { font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--fg); width: 100% }
 input:focus-visible, select:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0 }
+.numline a, .contact-lines a { text-decoration: none }
+.contact-lines a:hover, .contact-lines a:focus-visible { text-decoration: underline }
+[hidden] { display: none !important }
 .note { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; font-size: 0.95rem }
 .contact-lines { display: flex; flex-direction: column; gap: 14px; font-size: 1.05rem }
 .contact-lines b { font-family: var(--display); display: block; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted) }
@@ -150,13 +162,13 @@ footer .wrap { display: flex; flex-direction: column; gap: 10px }
 
 <section class="hero" id="top"><div class="wrap">
   <div class="stack">
-    <p class="eyebrow">AI phone receptionist for <span data-brand="city">your city</span></p>
+    <p class="eyebrow">AI phone receptionist for <span data-brand="city">Massachusetts</span> businesses</p>
     <h1>The receptionist that answers when yours can't.</h1>
-    <p class="lede">For HVAC, plumbing and law firms. It picks up only the calls your team misses, books the job on your calendar, and texts you the summary. It says it's an AI, and hands over the moment someone asks for a person.</p>
+    <p class="lede">For HVAC, plumbing and law firms. It picks up only the calls your team misses, books the job on your calendar, and sends you the summary. It says it's an AI, and hands over the moment someone asks for a person.</p>
     <div class="cta-row">
       <a class="btn primary" href="#contact">Book a 15-minute demo</a>
       <div>
-        <div class="numline">Call the demo line: <span data-brand="demo">(978) 347-8475</span></div>
+        <div class="numline">Call the demo line: <a data-brand="demo" data-brand-href="demoTel" href="tel:+19783478475">(978) 347-8475</a></div>
         <p class="small">Pretend you're a customer. Try to confuse it.</p>
       </div>
     </div>
@@ -170,7 +182,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 10px }
       <li><time>0:31</time><div><span class="who">Caller</span>Eight. It's 412 Maple Street.</div></li>
       <li><time>0:36</time><div><span class="who">Receptionist</span>Booked: tomorrow at eight, 412 Maple Street, furnace not running. The technician will text before arriving.</div></li>
     </ol>
-    <div class="booked">✓ Owner texted: "Furnace call booked, 8:00 am, 412 Maple St."</div>
+    <div class="booked">✓ Summary sent to the owner: "Furnace call booked, 8:00 am, 412 Maple St."</div>
   </aside>
 </div></section>
 
@@ -242,7 +254,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 10px }
 
 <div class="strip"><div class="wrap">
   <h2>Hear it before you decide.</h2>
-  <div class="cta-row"><div class="numline" data-brand="demo">(978) 347-8475</div><a class="btn ghost" href="#contact">Or book a demo</a></div>
+  <div class="cta-row"><div class="numline"><a data-brand="demo" data-brand-href="demoTel" href="tel:+19783478475">(978) 347-8475</a></div><a class="btn ghost" href="#contact">Or book a demo</a></div>
 </div></div>
 
 <section class="contact" id="contact"><div class="wrap">
@@ -251,24 +263,27 @@ footer .wrap { display: flex; flex-direction: column; gap: 10px }
     <h2>Book a 15-minute demo.</h2>
     <p class="lede">You call the demo line and try to confuse it. We show you what lands on the calendar and what you'd get on your phone. If it isn't useful, no hard feelings.</p>
     <div class="contact-lines">
-      <div><b>Phone</b><span data-brand="phone">(555) 010-0100</span></div>
-      <div><b>Email</b><span data-brand="email">hello@afterring.example</span></div>
-      <div><b>Book directly</b><a data-brand-href="booking" href="#contact">Pick a time on the calendar</a></div>
+      <div><b>Demo line, answered by the AI</b><a data-brand="demo" data-brand-href="demoTel" href="tel:+19783478475">(978) 347-8475</a></div>
+      <div data-optional="phone"><b>Phone</b><span data-brand="phone"></span></div>
+      <div><b>Email</b><a data-brand="email" data-brand-href="emailHref" href="mailto:afterringsservices@gmail.com">afterringsservices@gmail.com</a></div>
+      <div data-optional="booking"><b>Book directly</b><a data-brand-href="booking" href="#contact">Pick a time on the calendar</a></div>
     </div>
   </div>
   <form id="demo-form" novalidate>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
     <label for="f-name">Your name<input id="f-name" name="name" autocomplete="name" required></label>
     <label for="f-biz">Business<input id="f-biz" name="business" autocomplete="organization" required></label>
     <label for="f-phone">Best number to call you<input id="f-phone" name="phone" type="tel" autocomplete="tel" required></label>
     <label for="f-type">Type of business<select id="f-type" name="type"><option>HVAC</option><option>Plumbing</option><option>Law firm</option><option>Electrical</option><option>Other trade</option></select></label>
     <label for="f-when">Best time for a quick call<input id="f-when" name="when" placeholder="e.g. weekday mornings"></label>
     <button class="btn primary" type="submit">Request a demo</button>
-    <p class="note" id="form-note" hidden></p>
+    <p class="small">We use these details only to call you about a demo. <a href="privacy.html">Privacy</a></p>
+    <p class="note" id="form-note" role="status" hidden></p>
   </form>
 </div></section>
 
 <footer><div class="wrap">
-  <p><strong data-brand="company">AfterRing</strong> · <span data-brand="legal">[Legal name]</span> · <span data-brand="city">[City, State]</span></p>
+  <p><strong data-brand="company">AfterRing</strong><span data-optional="legal"> · <span data-brand="legal"></span></span> · <span data-brand="city">Massachusetts</span> · <a data-brand="email" data-brand-href="emailHref" href="mailto:afterringsservices@gmail.com">afterringsservices@gmail.com</a> · <a href="privacy.html">Privacy</a></p>
   <p>Our receptionists identify themselves as AI assistants and state that calls may be recorded. We answer inbound calls only and never make outbound sales calls on your behalf.</p>
   <p>© <span id="year">2026</span> <span data-brand="company">AfterRing</span>. All rights reserved.</p>
 </div></footer>
@@ -277,16 +292,20 @@ footer .wrap { display: flex; flex-direction: column; gap: 10px }
 // Edit these once. Every element with data-brand="…" is filled from here.
 const BRAND = {
   company: "AfterRing",
-  legal: "[Legal name]",
-  city: "[City, State]",
-  phone: "(555) 010-0100",
+  // Leave a value empty ("") and its row disappears from the page: nothing half-filled is ever shown.
+  legal: "",            // e.g. "AfterRing LLC", once the LLC or DBA is registered
+  city: "Massachusetts",
+  phone: "",            // your own business line (Google Voice), once it exists
   demo: "(978) 347-8475",
-  email: "hello@afterring.example",
-  booking: "https://calendly.com/your-link/15min",
-  // Where the form posts. Make a free form endpoint (Formspree, Basin, Web3Forms) and paste its URL here.
-  // Left empty, the form shows the phone number and email instead of sending.
-  formEndpoint: ""
+  email: "afterringsservices@gmail.com",
+  booking: "",          // Calendly or Cal.com link, once it exists
+  // Where the form posts: the n8n workflow in n8n/site-demo-request.json, which emails the request to the inbox above.
+  // If the post fails for any reason, the visitor is shown the email address and the demo line instead.
+  formEndpoint: "https://afterring.app.n8n.cloud/webhook/site-demo-request"
 };
+BRAND.demoTel = "tel:+1" + BRAND.demo.replace(/\D/g, "");
+BRAND.emailHref = "mailto:" + BRAND.email;
+document.querySelectorAll("[data-optional]").forEach(el => { if (!BRAND[el.dataset.optional]) el.hidden = true; });
 document.querySelectorAll("[data-brand]").forEach(el => { const v = BRAND[el.dataset.brand]; if (v) el.textContent = v; });
 document.querySelectorAll("[data-brand-href]").forEach(el => { const v = BRAND[el.dataset.brandHref]; if (v) el.href = v; });
 document.getElementById("year").textContent = new Date().getFullYear();
@@ -297,15 +316,24 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!form.reportValidity()) return;
   const data = Object.fromEntries(new FormData(form).entries());
+  const button = form.querySelector("button");
   if (BRAND.formEndpoint) {
+    button.disabled = true;
     try {
-      const r = await fetch(BRAND.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data) });
+      // URL-encoded on purpose: a "simple" request, so the browser sends it without a CORS pre-flight.
+      const r = await fetch(BRAND.formEndpoint, { method: "POST", body: new URLSearchParams({ ...data, page: location.href }) });
       if (!r.ok) throw new Error("bad status");
-      note.textContent = `Thanks, ${data.name}. We'll call ${data.phone} ${data.when ? "(" + data.when + ")" : "shortly"}. Meanwhile, try the demo line: ${BRAND.demo}.`;
-      note.hidden = false; form.reset(); return;
+      note.textContent = `Thanks, ${data.name}. We'll call ${data.phone} ${data.when ? "(" + data.when + ")" : "within one business day"}. Meanwhile, try the demo line: ${BRAND.demo}.`;
+      note.hidden = false; form.reset(); button.disabled = false; return;
     } catch (err) { /* fall through to the manual message */ }
+    button.disabled = false;
   }
-  note.textContent = `Thanks, ${data.name}. To book right now, call ${BRAND.phone} or email ${BRAND.email} with "${data.business}" in the subject. The demo line is ${BRAND.demo}.`;
+  // Nothing was sent. Say so, and hand the visitor a ready-made email instead.
+  const body = `Name: ${data.name}\nBusiness: ${data.business}\nPhone: ${data.phone}\nType: ${data.type}\nBest time: ${data.when || "any"}`;
+  const mail = document.createElement("a");
+  mail.href = `mailto:${BRAND.email}?subject=${encodeURIComponent("Demo request: " + data.business)}&body=${encodeURIComponent(body)}`;
+  mail.textContent = BRAND.email;
+  note.replaceChildren(`Sorry, ${data.name}, the form couldn't send just now. Email `, mail, ` (tap it and your details are already filled in), or call the demo line: ${BRAND.demo}.`);
   note.hidden = false;
 });
 </script>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <rect width="1024" height="1024" fill="#14213D"/>
+  <!-- ring with a gap at the top right; the orange dot is the ring that just came in -->
+  <path d="M 807.4 460.0 A 300 300 0 1 1 564.1 215.6" fill="none" stroke="#F7F6F2" stroke-width="110" stroke-linecap="round"/>
+  <circle cx="724.1" cy="299.9" r="72" fill="#E07A1F"/>
+</svg>

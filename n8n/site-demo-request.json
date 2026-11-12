@@ -1,0 +1,58 @@
+{
+  "name": "Website demo request · AfterRing",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "site-demo-request",
+        "responseMode": "onReceived",
+        "options": { "allowedOrigins": "*" }
+      },
+      "id": "c1000000-0000-4000-8000-000000000001",
+      "name": "Website form",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "loose" },
+          "conditions": [
+            { "id": "c1", "leftValue": "={{ $json.body.website ?? '' }}", "rightValue": "", "operator": { "type": "string", "operation": "empty", "singleValue": true } },
+            { "id": "c2", "leftValue": "={{ $json.body.name ?? '' }}", "rightValue": "", "operator": { "type": "string", "operation": "notEmpty", "singleValue": true } },
+            { "id": "c3", "leftValue": "={{ $json.body.phone ?? '' }}", "rightValue": "", "operator": { "type": "string", "operation": "notEmpty", "singleValue": true } }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "c1000000-0000-4000-8000-000000000002",
+      "name": "Real person? (honeypot empty, name and phone present)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "sendTo": "afterringsservices@gmail.com",
+        "subject": "={{ 'Demo request: ' + ($json.body.business || 'no business given') + ' (' + ($json.body.type || 'type not given') + ')' }}",
+        "emailType": "text",
+        "message": "={{ 'Someone asked for a demo on the website.\\n\\nName: ' + $json.body.name + '\\nBusiness: ' + ($json.body.business || '') + '\\nPhone: ' + $json.body.phone + '\\nType of business: ' + ($json.body.type || '') + '\\nBest time to call: ' + ($json.body.when || 'not given') + '\\n\\nSent from: ' + ($json.body.page || 'unknown page') + '\\nReceived: ' + $now.setZone('America/New_York').toFormat('cccc d LLLL, h:mm a') + ' Eastern' }}",
+        "options": { "appendAttribution": false }
+      },
+      "id": "c1000000-0000-4000-8000-000000000003",
+      "name": "Email the request to AfterRing",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [520, 200]
+    }
+  ],
+  "connections": {
+    "Website form": { "main": [[{ "node": "Real person? (honeypot empty, name and phone present)", "type": "main", "index": 0 }]] },
+    "Real person? (honeypot empty, name and phone present)": { "main": [[{ "node": "Email the request to AfterRing", "type": "main", "index": 0 }], []] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {},
+  "meta": { "templateCredsSetupCompleted": false }
+}
