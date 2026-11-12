@@ -211,7 +211,7 @@
       "lines": [
         {
           "speaker": "receptionist",
-          "text": "Northwind Heating, this is Kylie. I'm an AI assistant, and this call may be recorded. How can I help?"
+          "text": "Northwind Heating, this is Kylie. This call may be recorded. How can I help?"
         },
         {
           "speaker": "caller",
@@ -401,7 +401,7 @@
         "demoNumber": "[demo_number]",
         "email": "[email]",
         "booking": "[booking_link]",
-        "footer": "It says it is an AI. Calls may be recorded. Inbound only."
+        "footer": "Calls may be recorded. Inbound only. It never cold-calls."
       }
     }
   ]

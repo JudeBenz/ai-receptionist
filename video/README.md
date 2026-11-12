@@ -73,7 +73,9 @@ is the brand's stated fallback.
 
 ## Rules the video keeps
 
-- The receptionist says it is an AI and that the call may be recorded, in its first line.
+- The receptionist's first line gives its name and says the call may be recorded. The owner chose to
+  leave "I'm an AI assistant" out of the video greeting; the live assistant (`prompts/system-prompt.md`)
+  still discloses it, so the demo number will sound slightly different from the video.
 - The call is labelled "Simulated call" on screen for its whole length, with a note that the voices
   are synthesised. The business in it (Northwind Heating and Air) is the sample from `knowledge/`.
 - The only statistics are the three already on the deck's "leak" slide (6 in 10 calls ring out, 3 in 4
