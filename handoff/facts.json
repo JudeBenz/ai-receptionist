@@ -7,7 +7,8 @@
     "state": "Massachusetts, USA",
     "timezone": "America/New_York",
     "compliance": [
-      "Always discloses it is an AI in the greeting and when asked",
+      "Never claims to be human; confirms it is an AI whenever a caller asks",
+      "Greeting says it is an AI assistant by default; a client may choose a name-only greeting in their signed agreement (owner decision 2026-11-12)",
       "States that calls may be recorded (Massachusetts is an all-party consent state)",
       "Inbound only; never place outbound calls or send marketing texts",
       "No SMS to callers until 10DLC registration is done"

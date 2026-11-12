@@ -35,6 +35,12 @@ It answers only missed calls, books on a Google Calendar, logs to a Google Sheet
 - The video greeting has the AI disclosure back, matching the live line.
 - The prompt asks one question per turn; pushed to the live assistant. Not yet heard on a call.
 
+## Owner decisions on 2026-11-12, later in the day
+
+- AI disclosure rule changed (see CLAUDE.md): the recording notice and "never claims to be human, confirms it is an AI when asked" are fixed; the AI introduction in the greeting is now the default, and a client may choose a name-only greeting in their signed agreement. The site, privacy page and one-pager were reworded to match. The demo line and the video still use the AI introduction.
+- A first client agreement was drafted for a California plumbing prospect (kept in the git-ignored clients/ folder). Its terms differ from the published offer: $425 sign-up fee, no 30-day pilot, monthly fee billed in arrears and set each month by minutes handled (up to 900 Starter $297, to 2,250 Growth $497, to 4,500 Pro $997, then $0.25 a minute). The website, deck, one-pager, emails and video still advertise the free pilot, set-up included and flat plans; the owner has not yet said whether to change them.
+- Clients may choose all calls, missed calls and after hours, or after hours only.
+
 ## Still open
 
 - Import and publish `n8n/site-demo-request.json` in n8n (needs the owner signed in to n8n in the pane), pick the Gmail credential, then submit the live form once and check the email arrives.
