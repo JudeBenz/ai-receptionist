@@ -187,6 +187,21 @@ function Scene-Statement($g, $sc, [double]$t) {
   Txt $g $tx.sub 'body' 48 $MUTED ($VW / 2) ($y + 80) 0 'center' (A (($t - 0.8) / 0.5)) | Out-Null
 }
 
+function Scene-Stats($g, $sc, [double]$t) {
+  $tx = $sc.text; $stats = @($tx.stats); $n = $stats.Count
+  Txt $g $tx.headline 'display' 86 $CREAM 120 140 1600 'left' (A ($t / 0.4)) | Out-Null
+  $cw = 520; $gap = 50; $x0 = (1920 - ($n * $cw + ($n - 1) * $gap)) / 2
+  for ($i = 0; $i -lt $n; $i++) {
+    $p = Prog $t (Ev $sc ("stat{0}" -f ($i + 1))) 0.55; if ($p -le 0) { continue }
+    $x = $x0 + $i * ($cw + $gap); $y = 360 + 36 * (1 - $p); $al = A $p
+    FillRound $g $PANEL $al $x $y $cw 400 26
+    $g.FillRectangle((Brush $ORANGE $al), [single]($x + 44), [single]($y + 44), [single](90 * $p), [single]8)
+    Txt $g $stats[$i].big 'display' 136 $CREAM ($x + 40) ($y + 80) 0 'left' $al | Out-Null
+    Txt $g $stats[$i].sub 'body' 36 $MUTED ($x + 44) ($y + 262) ($cw - 88) 'left' $al | Out-Null
+  }
+  Txt $g $tx.source 'body' 26 $MUTED 120 920 1500 'left' (A (($t - 0.6) / 0.5)) | Out-Null
+}
+
 function Scene-Flow($g, $sc, [double]$t) {
   $tx = $sc.text
   Txt $g $tx.headline 'display' 86 $CREAM 120 150 1500 'left' (A ($t / 0.4)) | Out-Null
@@ -294,42 +309,61 @@ function Scene-Call($g, $sc, [double]$t, [int]$frame) {
 function Scene-Owner($g, $sc, [double]$t) {
   $tx = $sc.text
   Txt $g $tx.headline 'display' 76 $CREAM 120 120 1600 'left' (A ($t / 0.4)) | Out-Null
+  $top = 290; $ch = 600
+  # phone with the text alert
+  $p = Prog $t (Ev $sc 'text') 0.6
+  if ($p -gt 0) {
+    $x = 120; $y = $top + 40 * (1 - $p); $w = 360; $al = A $p
+    FillRound $g $PANEL $al $x $y $w $ch 44; StrokeRound $g $LINE $al 4 $x $y $w $ch 44
+    FillRound $g $NAVY $al ($x + 110) ($y + 16) 140 26 13
+    Txt $g $tx.smsLabel 'semi' 24 $MUTED ($x + $w / 2) ($y + 60) 0 'center' $al | Out-Null
+    $pn = Prog $t ((Ev $sc 'text') + 0.25) 0.5
+    if ($pn -gt 0) {
+      $ny = $y + 110 - 30 * (1 - $pn); $aln = A ($pn * $p)
+      FillRound $g $CREAM $aln ($x + 22) $ny ($w - 44) 250 22
+      Mark $g ($x + 52) ($ny + 34) 40 $NAVY $ORANGE $aln
+      Txt $g $tx.smsFrom 'semi' 24 $NAVY ($x + 80) ($ny + 20) 0 'left' $aln | Out-Null
+      Txt $g $tx.smsWhen 'body' 22 $INK2 ($x + $w - 42) ($ny + 22) 0 'right' $aln | Out-Null
+      Txt $g $tx.smsBody 'body' 27 $NAVY ($x + 42) ($ny + 70) ($w - 84) 'left' $aln | Out-Null
+    }
+    FillRound $g $LINE $al ($x + 120) ($y + $ch - 26) 120 8 4
+  }
   # email card
   $p = Prog $t (Ev $sc 'email') 0.6
   if ($p -gt 0) {
-    $x = 120 - 60 * (1 - $p); $y = 300; $w = 920; $h = 560; $al = A $p
-    FillRound $g $WHITE $al $x $y $w $h 24
-    $g.FillRectangle((Brush $NAVY $al), [single]($x), [single]($y), [single]$w, [single]86)
-    Mark $g ($x + 52) ($y + 43) 56 $CREAM $ORANGE $al
-    Txt $g ("{0}  to you" -f $tx.emailFrom) 'semi' 28 $CREAM ($x + 96) ($y + 26) 0 'left' $al | Out-Null
-    Txt $g '2:06 pm' 'body' 26 $MUTED ($x + $w - 30) ($y + 28) 0 'right' $al | Out-Null
-    Txt $g $tx.emailSubject 'display' 38 $NAVY ($x + 40) ($y + 118) ($w - 80) 'left' $al | Out-Null
+    $x = 540 - 40 * (1 - $p); $y = $top; $w = 760; $al = A $p
+    FillRound $g $WHITE $al $x $y $w $ch 24
+    $g.FillRectangle((Brush $NAVY $al), [single]$x, [single]$y, [single]$w, [single]84)
+    Mark $g ($x + 50) ($y + 42) 54 $CREAM $ORANGE $al
+    Txt $g ("{0}  to you" -f $tx.emailFrom) 'semi' 27 $CREAM ($x + 92) ($y + 26) 0 'left' $al | Out-Null
+    Txt $g '2:06 pm' 'body' 24 $MUTED ($x + $w - 28) ($y + 28) 0 'right' $al | Out-Null
+    Txt $g $tx.emailSubject 'display' 34 $NAVY ($x + 36) ($y + 112) ($w - 72) 'left' $al | Out-Null
     $yy = $y + 230
-    foreach ($ln in @($tx.emailBody)) { $yy += (Txt $g $ln 'body' 32 $NAVY ($x + 40) $yy ($w - 80) 'left' $al) + 18 }
-    Pill $g 'Transcript.txt' ($x + 40) ($y + $h - 86) $CREAM $NAVY 24 $al | Out-Null
+    foreach ($ln in @($tx.emailBody)) { $yy += (Txt $g $ln 'body' 29 $NAVY ($x + 36) $yy ($w - 72) 'left' $al) + 16 }
+    Pill $g 'Transcript.txt' ($x + 36) ($y + $ch - 82) $CREAM $NAVY 23 $al | Out-Null
   }
   # calendar card
   $p = Prog $t (Ev $sc 'calendar') 0.6
   if ($p -gt 0) {
-    $x = 1100 + 60 * (1 - $p); $y = 300; $w = 700; $h = 560; $al = A $p
-    FillRound $g $WHITE $al $x $y $w $h 24
-    $g.FillRectangle((Brush $NAVY $al), [single]$x, [single]$y, [single]$w, [single]86)
-    Txt $g 'Wednesday' 'semi' 30 $CREAM ($x + 36) ($y + 25) 0 'left' $al | Out-Null
-    Txt $g 'Your calendar' 'body' 26 $MUTED ($x + $w - 30) ($y + 28) 0 'right' $al | Out-Null
-    $hours = @('7 am', '8 am', '9 am', '10 am'); $rowH = 108
+    $x = 1340 + 50 * (1 - $p); $y = $top; $w = 460; $al = A $p
+    FillRound $g $WHITE $al $x $y $w $ch 24
+    $g.FillRectangle((Brush $NAVY $al), [single]$x, [single]$y, [single]$w, [single]84)
+    Txt $g 'Wednesday' 'semi' 28 $CREAM ($x + 32) ($y + 26) 0 'left' $al | Out-Null
+    Txt $g 'Your calendar' 'body' 23 $MUTED ($x + $w - 28) ($y + 30) 0 'right' $al | Out-Null
+    $hours = @('7 am', '8 am', '9 am', '10 am'); $rowH = 112
     for ($i = 0; $i -lt 4; $i++) {
       $ry = $y + 120 + $i * $rowH
-      Txt $g $hours[$i] 'body' 26 $INK2 ($x + 36) ($ry - 14) 0 'left' $al | Out-Null
-      $g.DrawLine((Pen 'D9DDE3' 2 $al), [single]($x + 120), [single]$ry, [single]($x + $w - 36), [single]$ry)
+      Txt $g $hours[$i] 'body' 24 $INK2 ($x + 30) ($ry - 13) 0 'left' $al | Out-Null
+      $g.DrawLine((Pen 'D9DDE3' 2 $al), [single]($x + 104), [single]$ry, [single]($x + $w - 30), [single]$ry)
     }
     $ey = $y + 120 + $rowH; $pe = Prog $t ((Ev $sc 'calendar') + 0.25) 0.4
     if ($pe -gt 0) {
       $ale = A ($pe * $p)
-      FillRound $g $ORANGE $ale ($x + 130) ($ey + 4) ($w - 176) ($rowH - 8) 14
-      Txt $g $tx.calTitle 'semi' 29 $NAVY ($x + 150) ($ey + 16) ($w - 210) 'left' $ale | Out-Null
-      Txt $g ("{0}  {1}  {2}" -f $tx.calWhen, [string][char]0xB7, $tx.calPhone) 'body' 25 $NAVY ($x + 150) ($ey + 58) ($w - 210) 'left' $ale | Out-Null
+      FillRound $g $ORANGE $ale ($x + 112) ($ey + 4) ($w - 146) ($rowH - 8) 14
+      Txt $g $tx.calTitle 'semi' 26 $NAVY ($x + 128) ($ey + 12) ($w - 176) 'left' $ale | Out-Null
+      Txt $g $tx.calWhen 'body' 24 $NAVY ($x + 128) ($ey + 74) ($w - 176) 'left' $ale | Out-Null
     }
-    Pill $g $tx.calSource ($x + 36) ($y + $h - 86) $NAVY $CREAM 24 $al | Out-Null
+    Pill $g $tx.calSource ($x + 30) ($y + $ch - 82) $NAVY $CREAM 22 $al | Out-Null
   }
   Watermark $g
 }
@@ -407,6 +441,7 @@ for ($i = $From; $i -le $To; $i++) {
     'logo'      { Scene-Logo $g $sc $lt }
     'shop'      { Scene-Shop $g $sc $lt; Watermark $g }
     'statement' { Scene-Statement $g $sc $lt; Watermark $g }
+    'stats'     { Scene-Stats $g $sc $lt; Watermark $g }
     'flow'      { Scene-Flow $g $sc $lt; Watermark $g }
     'call'      { Scene-Call $g $sc $lt $i }
     'owner'     { Scene-Owner $g $sc $lt }
@@ -416,10 +451,10 @@ for ($i = $From; $i -le $To; $i++) {
   }
   # flash cut: a few solid frames at the start of each scene (white or orange, alternating)
   if ($sc.flash) {
-    $f0 = [int][math]::Round([double]$sc.start * $FPS); $k = $i - $f0; $n = [int]$sc.flashFrames
+    $f0 = [int][math]::Ceiling([double]$sc.start * $FPS - 1e-6); $k = $i - $f0; $n = [int]$sc.flashFrames
     if ($k -ge 0 -and $k -lt $n) {
       $hex = if ($sc.flash -eq 'orange') { $ORANGE } else { $WHITE }
-      $al = if ($k -lt $n - 1) { 255 } else { 150 }
+      $al = [int](255 * [double]$sc.flashAlpha[[math]::Min($k, $sc.flashAlpha.Count - 1)])
       $g.FillRectangle((Brush $hex $al), 0, 0, $VW, $VH)
     }
   }

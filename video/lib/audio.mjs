@@ -124,8 +124,9 @@ export const sfx = {
   },
   // Flash-cut whoosh: filtered noise with a fast attack and a sweep downwards.
   whoosh() {
-    const n = envelope(noise(0.22, 1), (t, d) => Math.min(1, t / 0.02) * Math.exp(-14 * t));
-    return lowpass(n, 6000, 500);
+    // soft and low: a breath of air rather than a hit
+    const n = envelope(noise(0.26, 1), (t, d) => Math.min(1, t / 0.06) * Math.exp(-11 * t));
+    return lowpass(lowpass(n, 1800, 300), 2200);
   },
   ding() {
     const a = tone(1318.5, 0.9, { gain: 0.6, attack: 0.004, release: 0.6 });
@@ -138,6 +139,16 @@ export const sfx = {
     const n = Math.round(0.12 * SR); const o = new Float32Array(n);
     for (let i = 0; i < n; i++) { const t = i / SR; const f = 700 - 400 * (t / 0.12); o[i] = Math.sin(TAU * f * t) * Math.exp(-28 * t) * 0.8; }
     return o;
+  },
+  // phone vibration: two short low buzzes
+  buzz() {
+    const o = new Float32Array(Math.round(0.4 * SR));
+    for (const at of [0, 0.19]) {
+      const n = Math.round(0.12 * SR); const b = new Float32Array(n);
+      for (let i = 0; i < n; i++) { const t = i / SR; b[i] = Math.sin(TAU * 170 * t) * (0.6 + 0.4 * Math.sin(TAU * 45 * t)) * Math.min(1, t / 0.01, (0.12 - t) / 0.03); }
+      addInto(o, b, at, 0.7);
+    }
+    return lowpass(o, 900);
   },
   tick() {
     return envelope(lowpass(noise(0.03, 1), 2500), (t) => Math.exp(-120 * t) * 0.8);

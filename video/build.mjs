@@ -105,11 +105,12 @@ async function buildAudioAndTimeline() {
     for (const ev of sc.events ?? []) {
       let base = start;
       if (ev.after?.startsWith("line:")) base = lines[parseInt(ev.after.slice(5))].end;
+      else if (ev.after?.startsWith("linestart:")) base = lines[parseInt(ev.after.slice(10))].start;
       events[ev.id] = round(base + (ev.offset ?? 0) - start); // scene-relative seconds
     }
     const flashColor = hasFlash ? script.flash.colors[flashIndex++ % script.flash.colors.length] : null;
-    scenes.push({ id: sc.id, type: sc.type, start: round(start), end: round(end), flash: flashColor, flashFrames, lines, events, text: sc.text ?? {} });
-    if (hasFlash) sfxCues.push({ name: "whoosh", at: start, gain: 0.55 });
+    scenes.push({ id: sc.id, type: sc.type, start: round(start), end: round(end), flash: flashColor, flashFrames, flashAlpha: script.flash.alpha ?? [1, 1, 0.6], lines, events, text: sc.text ?? {} });
+    if (hasFlash) sfxCues.push({ name: "whoosh", at: start - 0.05, gain: 0.22 });
     cursor = end;
   }
   const duration = round(cursor);
@@ -126,11 +127,14 @@ async function buildAudioAndTimeline() {
   }
   const call = scenes.find((s) => s.id === "call");
   if (call) sfxCues.push({ name: "tick", at: call.start + 0.5, gain: 0.35 });
-  if (ev("owner", "email") != null) sfxCues.push({ name: "ding", at: ev("owner", "email"), gain: 0.35 });
+  if (ev("owner", "text") != null) sfxCues.push({ name: "buzz", at: ev("owner", "text"), gain: 0.5 });
+  if (ev("owner", "email") != null) sfxCues.push({ name: "ding", at: ev("owner", "email"), gain: 0.3 });
   if (ev("owner", "calendar") != null) sfxCues.push({ name: "pop", at: ev("owner", "calendar"), gain: 0.5 });
   if (ev("offer", "price") != null) sfxCues.push({ name: "pop", at: ev("offer", "price"), gain: 0.45 });
   const what = scenes.find((s) => s.id === "what");
   if (what) for (const k of ["step1", "step2", "step3", "step4"]) sfxCues.push({ name: "tick", at: what.start + what.events[k], gain: 0.3 });
+  const stats = scenes.find((s) => s.id === "problem");
+  if (stats) for (const k of ["stat1", "stat2", "stat3"]) if (stats.events[k] != null) sfxCues.push({ name: "tick", at: stats.start + stats.events[k], gain: 0.3 });
   const notS = scenes.find((s) => s.id === "not");
   if (notS) for (const l of notS.lines) sfxCues.push({ name: "tick", at: l.start - 0.05, gain: 0.3 });
 

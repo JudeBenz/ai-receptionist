@@ -5,27 +5,34 @@
   "height": 1080,
   "voices": {
     "narrator": {
-      "voice": "en-US-AndrewNeural",
+      "voice": "en-US-AndrewMultilingualNeural",
       "rate": "+5%",
       "pitch": "-2Hz"
     },
     "receptionist": {
-      "voice": "en-US-AvaNeural",
-      "rate": "+12%",
+      "voice": "en-US-EmmaMultilingualNeural",
+      "rate": "+4%",
       "pitch": "+0Hz"
     },
     "caller": {
       "voice": "en-US-ChristopherNeural",
-      "rate": "+10%",
+      "rate": "+6%",
       "pitch": "-1Hz"
     }
   },
   "flash": {
-    "frames": 3,
+    "frames": 4,
     "colors": [
       "white",
       "orange"
-    ]
+    ],
+    "alpha": [
+      0.5,
+      0.34,
+      0.2,
+      0.08
+    ],
+    "_note": "alpha per flash frame; lower is softer"
   },
   "scenes": [
     {
@@ -39,7 +46,7 @@
       "id": "shop",
       "type": "shop",
       "leadIn": 0.4,
-      "tail": 0.6,
+      "tail": 0.4,
       "lines": [
         {
           "speaker": "narrator",
@@ -81,25 +88,66 @@
     },
     {
       "id": "problem",
-      "type": "statement",
+      "type": "stats",
       "leadIn": 0.3,
-      "tail": 1,
+      "tail": 0.6,
       "lines": [
         {
           "speaker": "narrator",
-          "text": "Most missed callers never call back."
+          "text": "Six in ten calls to a small business ring out."
+        },
+        {
+          "speaker": "narrator",
+          "gap": 0.3,
+          "text": "Three in four of those callers never try again."
+        },
+        {
+          "speaker": "narrator",
+          "gap": 0.3,
+          "text": "And most of them call a competitor instead."
+        }
+      ],
+      "events": [
+        {
+          "id": "stat1",
+          "after": "linestart:0",
+          "offset": -0.1
+        },
+        {
+          "id": "stat2",
+          "after": "linestart:1",
+          "offset": -0.1
+        },
+        {
+          "id": "stat3",
+          "after": "linestart:2",
+          "offset": -0.1
         }
       ],
       "text": {
-        "headline": "Most missed callers\nnever call back.",
-        "sub": "They call whoever picks up."
+        "headline": "Most missed callers never call back.",
+        "stats": [
+          {
+            "big": "6 in 10",
+            "sub": "calls to a small business ring out"
+          },
+          {
+            "big": "3 in 4",
+            "sub": "callers never try again after one unanswered call"
+          },
+          {
+            "big": "6 in 10",
+            "sub": "of them call a competitor instead"
+          }
+        ],
+        "source": "2024 study of 85 small businesses, as reported by industry sources. Your own numbers will differ."
       }
     },
     {
       "id": "what",
       "type": "flow",
       "leadIn": 0.3,
-      "tail": 0.8,
+      "tail": 0.5,
       "lines": [
         {
           "speaker": "narrator",
@@ -158,8 +206,8 @@
     {
       "id": "call",
       "type": "call",
-      "leadIn": 0.8,
-      "tail": 0.8,
+      "leadIn": 0.6,
+      "tail": 0.5,
       "lines": [
         {
           "speaker": "receptionist",
@@ -167,32 +215,32 @@
         },
         {
           "speaker": "caller",
-          "gap": 0.3,
+          "gap": 0.2,
           "text": "Our heat just went out. It's freezing in here."
         },
         {
           "speaker": "receptionist",
-          "gap": 0.25,
+          "gap": 0.2,
           "text": "Sorry to hear that. Let's get someone out. Can I get your name, and is this the best number to reach you?"
         },
         {
           "speaker": "caller",
-          "gap": 0.3,
+          "gap": 0.2,
           "text": "Dana Reyes. And yeah, this number's fine."
         },
         {
           "speaker": "receptionist",
-          "gap": 0.25,
+          "gap": 0.2,
           "text": "Thanks, Dana. I have tomorrow at eight, or eleven thirty. Which works?"
         },
         {
           "speaker": "caller",
-          "gap": 0.25,
+          "gap": 0.2,
           "text": "Eight."
         },
         {
           "speaker": "receptionist",
-          "gap": 0.25,
+          "gap": 0.2,
           "text": "You're booked for eight tomorrow morning. Someone will confirm before the visit."
         }
       ],
@@ -211,23 +259,33 @@
       "id": "owner",
       "type": "owner",
       "leadIn": 0.3,
-      "tail": 1,
+      "tail": 0.7,
       "lines": [
         {
           "speaker": "narrator",
-          "text": "Before the call ends, you get the summary by email, and the job is on your calendar."
+          "text": "The moment it books a job, you get a text."
+        },
+        {
+          "speaker": "narrator",
+          "gap": 0.3,
+          "text": "The summary lands in your inbox, and the visit is already on your calendar."
         }
       ],
       "events": [
         {
-          "id": "email",
+          "id": "text",
           "after": "start",
-          "offset": 0.5
+          "offset": 0.4
+        },
+        {
+          "id": "email",
+          "after": "linestart:1",
+          "offset": 0.2
         },
         {
           "id": "calendar",
-          "after": "line:0",
-          "offset": -1.6
+          "after": "line:1",
+          "offset": -1.9
         }
       ],
       "text": {
@@ -242,14 +300,18 @@
         "calTitle": "Service visit: Dana Reyes, no heat",
         "calWhen": "8:00 to 9:00 am",
         "calPhone": "(617) 555-0198",
-        "calSource": "Booked by AfterRing"
+        "calSource": "Booked by AfterRing",
+        "smsFrom": "AfterRing",
+        "smsWhen": "now",
+        "smsBody": "New booking: Dana Reyes, no heat. Tomorrow 8:00 am. Summary in your email.",
+        "smsLabel": "Text to your cell"
       }
     },
     {
       "id": "not",
       "type": "list",
       "leadIn": 0.3,
-      "tail": 0.8,
+      "tail": 0.6,
       "lines": [
         {
           "speaker": "narrator",
@@ -275,7 +337,7 @@
           },
           {
             "title": "It never cold-calls.",
-            "sub": "Inbound only. No marketing texts."
+            "sub": "Inbound only. The only texts it sends are to you."
           },
           {
             "title": "You keep your own number.",
@@ -288,7 +350,7 @@
       "id": "offer",
       "type": "offer",
       "leadIn": 0.3,
-      "tail": 1,
+      "tail": 0.6,
       "lines": [
         {
           "speaker": "narrator",
@@ -313,14 +375,14 @@
         "planName": "Growth plan",
         "planPrice": "$497",
         "planUnit": "a month, flat",
-        "planSub": "Set-up included. No contract past the first 30 days."
+        "planSub": "Text alerts and live transfer included. No contract past the first 30 days."
       }
     },
     {
       "id": "end",
       "type": "end",
       "leadIn": 0.5,
-      "tail": 2.4,
+      "tail": 1.8,
       "lines": [
         {
           "speaker": "narrator",

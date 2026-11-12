@@ -55,7 +55,7 @@ HighLevel (two of the three videos) bundles voice, CRM, snapshots and rebilling 
 - `business/` the working brand config and the launch checklist for the company around the product.
 - `sales/` the cold-call script and day plan, call tracker, lead-list template, follow-up emails, one-pager and the service agreement draft.
 - `site/` the one-page website, deployable as static files.
-- `video/` the 85-second pitch video sent after a cold call (`afterring-pitch-720p.mp4` for email), with the scripts that generate it: synthesised voices, generated music, GDI+ frames, ffmpeg. `video/README.md` says how to change the words and re-render.
+- `video/` the 94-second pitch video sent after a cold call (`afterring-pitch-720p.mp4` for email), with the scripts that generate it: synthesised voices, generated music, GDI+ frames, ffmpeg. `video/README.md` says how to change the words and re-render.
 - `ops/` the client delivery playbook (yes to day 30), onboarding questionnaire, go-live checklist with call-forwarding codes, welcome email, staff one-pager, weekly report and day-30 review templates.
 - `clients/` one folder per client, scaffolded from `clients/_template/`; real client folders and their `.env` stay out of git.
 - `scripts/` `new-client.mjs` (scaffold), `n8n-for-client.mjs` (per-client workflow files with calendar, sheet and paths prefilled); `vapi/setup.mjs --client <slug>` builds that client's assistant.
