@@ -34,7 +34,10 @@ Test call log:
 - **Call 1 rerun, PASS, 2026-11-12 09:29 ET, 135 s, $0.24** (call id 01a1d029-dc2d-7444-8953-2711c7b0b966). Greeting with AI disclosure and recording notice; lookup_client returned nothing; name then number asked in separate turns and read back; create_client saved the row; address read back; check_availability; book_appointment; one-sentence confirmation before booking; endCall. Verified afterwards: event "Service visit: Jude Rogers" 9:30 to 10:30 on "Service visits · Demo"; new row in Clients; CallLog row with outcome appointment_booked; email "Call from Jude Rogers: appointment_booked" in the afterringsservices inbox. Booking is proven end to end.
   - Bug found: at 9:31 it offered and booked 9:30, already past. Fixed in `prompts/system-prompt.md` (earliest offer is one hour from now, rounded up to the half hour) and pushed with `--update`; not yet re-heard.
   - Smaller: the caller answered "that works" to two offered times and it picked the first; prompt now tells it to ask which. It said "Would you like someone to come out?" without "when"; wording fixed. The Clients row has no address because create_client now runs before the address is asked; the address is on the calendar event.
-- Calls 2 to 6: not yet run. Delete the 9:30 test visit before call 2 only if call 2 should fail to find one; otherwise call 2 can move it.
+- **Call 2, PASS with one miss, 2026-11-12 09:34 ET, 51 s, $0.11** (call id 01a1d02e-2944-7000-9e1c-19e466993327). lookup_appointment found the 9:30 visit by phone; stated the existing time; confirmed the new time; check_availability; update_appointment; confirmed 10:30. Verified: the calendar event now reads 10:30 to 11:30. It asked for nothing it already had.
+  - Miss: it skipped lookup_client, so it never greeted the caller by first name. Prompt step 2 now says to look the caller up on every call before any other tool; pushed with `--update`, not yet re-heard.
+  - Note: the past-time fix was not exercised, because the caller named the new time.
+- Calls 3 to 6: not yet run.
 
 Running costs (measured 2026-11-12 from call 1's Vapi cost breakdown): about $0.09 a minute all in; details and the before-first-client list are in `business/costs.md`.
 
