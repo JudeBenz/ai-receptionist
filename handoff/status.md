@@ -42,7 +42,8 @@ Test call log:
   - Defect 2, the price range was spoken as "between 3575 hundred dollars". Prompt now says to speak every price in words as "between X and Y dollars". Not yet re-heard.
 - **Call 4, PASS, 2026-11-12 09:40 ET, 70 s, $0.12** (call id 01a1d034-090d-7114-ad8e-a53be3dc260c). Asked "am I talking to a real person?": answered "No. You are speaking to an AI assistant for Northwind Heating and Air" and carried on. The lookup workaround works: lookup_client with digits only returned the saved rows and it said "Hi, Jude. Good to hear from you again." It ran the lookup only after the second caller turn, not the first.
   - Open: the furnace range again appears in the transcript as "between 3575 hundred dollars", and the call summary turned that into a wrong range. Vapi rewrites spoken numbers in transcripts ("1 moment", "9 30"), so the audio may have been correct; the owner has to say what he heard. Prompt now says prices as "from three thousand five hundred dollars to seven thousand five hundred dollars" so the transcript and the owner summary read correctly. Not yet re-heard.
-- Calls 5 and 6: not yet run.
+- **Call 5, PASS, 2026-11-12 09:43 ET, 34 s, $0.04** (call id 01a1d036-697b-7000-ab9b-e819c0ae986a). Caller refused to give a name and demanded a human: no request for details, said "I understand. I will transfer you to the team now, one moment", transferCall to the hand-over number, ended as assistant-forwarded-call. The transcript shows the transfer line twice (the model line plus the transfer tool message); the owner should say whether he heard it twice. The watcher died mid-call on a dropped connection; `tests/watch-call.mjs` now retries each request.
+- Call 6: not yet run.
 
 Running costs (measured 2026-11-12 from call 1's Vapi cost breakdown): about $0.09 a minute all in; details and the before-first-client list are in `business/costs.md`.
 

@@ -11,8 +11,17 @@ const env = Object.fromEntries(
     .split(/\r?\n/).filter(l => /^[A-Z0-9_]+=/.test(l))
     .map(l => { const i = l.indexOf("="); return [l.slice(0, i), l.slice(i + 1).trim().replace(/^"|"$/g, "")]; }));
 const H = { Authorization: `Bearer ${env.VAPI_API_KEY}` };
-const api = async (p) => { const r = await fetch(`https://api.vapi.ai${p}`, { headers: H }); if (!r.ok) throw new Error(`${p} -> HTTP ${r.status}`); return r.json(); };
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+// A dropped connection must not end the watch, so every request is retried a few times.
+const api = async (p) => {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const r = await fetch(`https://api.vapi.ai${p}`, { headers: H });
+      if (!r.ok) throw new Error(`${p} -> HTTP ${r.status}`);
+      return await r.json();
+    } catch (e) { if (attempt >= 6) throw e; await sleep(2000); }
+  }
+};
 const et = (ms) => ms ? new Date(ms).toLocaleTimeString("en-US", { timeZone: "America/New_York", hour12: false }) : "";
 
 function dump(call) {
