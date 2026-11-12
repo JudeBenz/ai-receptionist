@@ -52,7 +52,7 @@ It answers only missed calls, books on a Google Calendar, logs to a Google Sheet
 
 ## Next steps, in order
 
-1. Finish the six test calls (booking is still unproven), fix what they show, log each in `handoff/status.md`. Start `node tests/watch-call.mjs`, then have the owner dial.
+1. Run test calls 2 to 6 (call 1 passed on 2026-11-12, booking proven), fix what they show, log each in `handoff/status.md`. Start `node tests/watch-call.mjs`, then have the owner dial.
 2. Import the website-form workflow into n8n and test the live form.
 3. First prospect: Hicks Plumbing LLC (owner has the email address; intro email drafted in the 2026-11-12 session, not sent).
 4. Before the first paying client: the six items at the end of `business/costs.md` (Vapi Core for a second number, n8n paid plan before the trial ends 2026-11-25, Stripe links, agreement reviewed, 10DLC, own phone line and domain). Then Google Voice and a Calendly link into the `BRAND` block and `business/brand.json`.

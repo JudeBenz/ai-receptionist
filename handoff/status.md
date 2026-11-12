@@ -29,6 +29,13 @@ Secrets stored (name and file only, never the value):
 - VAPI_API_KEY in .env (copied clipboard-to-file by script, never displayed)
 - N8N_MCP_TOKEN in .env (generated 2026-11-11, pasted into the n8n Bearer Auth credential by the owner)
 
+Test call log:
+
+- **Call 1 rerun, PASS, 2026-11-12 09:29 ET, 135 s, $0.24** (call id 01a1d029-dc2d-7444-8953-2711c7b0b966). Greeting with AI disclosure and recording notice; lookup_client returned nothing; name then number asked in separate turns and read back; create_client saved the row; address read back; check_availability; book_appointment; one-sentence confirmation before booking; endCall. Verified afterwards: event "Service visit: Jude Rogers" 9:30 to 10:30 on "Service visits · Demo"; new row in Clients; CallLog row with outcome appointment_booked; email "Call from Jude Rogers: appointment_booked" in the afterringsservices inbox. Booking is proven end to end.
+  - Bug found: at 9:31 it offered and booked 9:30, already past. Fixed in `prompts/system-prompt.md` (earliest offer is one hour from now, rounded up to the half hour) and pushed with `--update`; not yet re-heard.
+  - Smaller: the caller answered "that works" to two offered times and it picked the first; prompt now tells it to ask which. It said "Would you like someone to come out?" without "when"; wording fixed. The Clients row has no address because create_client now runs before the address is asked; the address is on the calendar event.
+- Calls 2 to 6: not yet run. Delete the 9:30 test visit before call 2 only if call 2 should fail to find one; otherwise call 2 can move it.
+
 Running costs (measured 2026-11-12 from call 1's Vapi cost breakdown): about $0.09 a minute all in; details and the before-first-client list are in `business/costs.md`.
 
 Problems hit and how they were solved:
